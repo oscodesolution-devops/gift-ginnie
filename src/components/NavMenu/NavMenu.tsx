@@ -44,7 +44,7 @@ export default function NavMenu({
   };
 
   return (
-    <div className="absolute top-0 left-0 w-full md:w-1/4 h-screen bg-white dark:bg-[#3d3c3c] dark:text-white">
+    <div className="absolute top-0 left-0 overflow-auto w-full md:w-1/4 h-screen bg-white dark:bg-[#3d3c3c] dark:text-white">
       {/* Main Menu Container */}
       <div className="w-full text-2xl lg:text-2xl font-bold bg-white text-black dark:bg-[#3d3c3c] dark:text-white">
         {/* Header */}
@@ -94,7 +94,7 @@ export default function NavMenu({
                             ? "none"
                             : ".1px solid gray",
                       }}
-                      className="py-5 text-xs lg:text-xs px-10"
+                      className="py-5 text-xs lg:text-base px-10"
                     >
                       {list}
                     </div>

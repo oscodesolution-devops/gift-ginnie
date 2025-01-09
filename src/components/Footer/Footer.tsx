@@ -90,19 +90,21 @@ export default function Footer() {
           ))}
         </div>
         <div>
-          <p className="text-gray-500 font-bold pb-20 dark:text-white lg:w-2/3">
+          <p className="text-gray-500 font-bold pb-10 dark:text-white lg:w-2/3">
             Welcome to, your fashion destination. Discover the latest trends,
             find perfect pieces for your wardrobe, and enjoy seamless online
             shopping.
           </p>
         </div>
-        <div className="flex justify-between  pb-16">
+        <div className="flex justify-between  pb-12">
           {footerTabs.map((item, index) => (
             <div key={index}>
               <div className="font-bold text-base pb-4">{item.title}</div>
               <div className="flex flex-col gap-4">
                 {item.tabs.map((tab, index) => (
-                  <div key={index} className="text-gray-500 font-medium">{tab.name}</div>
+                  <div key={index} className="text-gray-500 font-medium">
+                    {tab.name}
+                  </div>
                 ))}
               </div>
             </div>

@@ -12,9 +12,12 @@ export default function Navbar() {
   }
   return (
     <>
-      <div className="relative">
+      <div className="sticky top-0">
         <nav className="flex justify-between items-center px-5 md:px-7 py-6 md:py-6 border-b border-gray-200 bg-white dark:bg-[#0D0D0D] dark:text-white">
-          <div className="text-2xl cursor-pointer" onClick={() => setIsMenuOpen(true)}>
+          <div
+            className="text-2xl cursor-pointer"
+            onClick={() => setIsMenuOpen(true)}
+          >
             <RiMenu2Fill />
           </div>
           <div className="text-xl md:text-2xl font-bold">GIFT GINNIE</div>
@@ -25,7 +28,7 @@ export default function Navbar() {
             </div>
           </div>
         </nav>
-        {isMenuOpen && <NavMenu  handleNavMenu={handleNavMenu}/>}
+        {isMenuOpen && <NavMenu handleNavMenu={handleNavMenu} />}
       </div>
     </>
   );
