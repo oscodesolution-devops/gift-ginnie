@@ -3,18 +3,45 @@ import { FaChevronDown } from "react-icons/fa";
 import { FaChevronUp } from "react-icons/fa";
 import { useState } from "react";
 
-const navItems: { name: string; list: string[] }[] = [
+const navItems: { name: string; list: { name: string; link: string }[] }[] = [
   {
     name: "Home",
     list: [],
   },
   {
     name: "product",
-    list: ["Advisiable", "Best Sellers", "New Arrivals", "On Sale"],
+    list: [
+      {
+        name: "All",
+        link: "/",
+      },
+      {
+        name: "New Arrivals",
+        link: "/",
+      },
+      {
+        name: "Best Sellers",
+        link: "/",
+      }
+
+    ],
   },
   {
     name: "short-by",
-    list: ["views", "price", "rating"],
+    list: [
+      {
+        name:"Views",
+        link:"/",
+      },
+      {
+        name:"Price",
+        link:"/",
+      },
+      {
+        name:"Color",
+        link:"/",
+      }
+    ],
   },
   {
     name: "blog",
@@ -87,16 +114,16 @@ export default function NavMenu({
                 <div>
                   {item.list.map((list, index) => (
                     <div
-                      key={list}
+                      key={index}
                       style={{
                         borderBottom:
                           index === item.list.length - 1
                             ? "none"
                             : ".1px solid gray",
                       }}
-                      className="py-5 text-xs lg:text-base px-10"
+                      className="py-5 text-xs lg:text-base px-10 cursor-pointer"
                     >
-                      {list}
+                      {list.name}
                     </div>
                   ))}
                 </div>
