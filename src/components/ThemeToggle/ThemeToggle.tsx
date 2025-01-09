@@ -26,7 +26,7 @@ export default function ThemeToggle() {
   }, [darkMode]);
 
   return (
-    <div className="text-2xl" onClick={() => setDarkMode(!darkMode)}>
+    <div className="text-2xl cursor-pointer" onClick={() => setDarkMode(!darkMode)}>
       {darkMode ? <IoSunnyOutline /> : <LuMoonStar />}
     </div>
   );
