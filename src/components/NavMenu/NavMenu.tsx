@@ -22,25 +22,24 @@ const navItems: { name: string; list: { name: string; link: string }[] }[] = [
       {
         name: "Best Sellers",
         link: "/",
-      }
-
+      },
     ],
   },
   {
     name: "short-by",
     list: [
       {
-        name:"Views",
-        link:"/",
+        name: "Views",
+        link: "/",
       },
       {
-        name:"Price",
-        link:"/",
+        name: "Price",
+        link: "/",
       },
       {
-        name:"Color",
-        link:"/",
-      }
+        name: "Color",
+        link: "/",
+      },
     ],
   },
   {
