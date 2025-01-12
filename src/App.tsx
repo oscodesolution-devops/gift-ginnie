@@ -6,6 +6,7 @@ import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import TermsAndConditions from "./pages/TermsAndConditions/TermsAndConditions";
 import FAQ from "./pages/FAQ/FAQ";
 import Contact from "./pages/Contact/Contact";
+import Blogs from "./pages/Blogs/Blogs";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <ScrollToTop />
       <MainLayout>
         <Routes>
+          <Route path="/blogs" element={<Blogs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
           <Route

@@ -55,7 +55,7 @@ const footerTabs: { title: string; tabs: { name: string; link: string }[] }[] =
         },
         {
           name: "Blog",
-          link: "/",
+          link: "/blogs",
         },
         {
           name: "FAQ",
