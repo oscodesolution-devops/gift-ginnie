@@ -10,7 +10,7 @@ export default function MainLayout({
   return (
     <div className="w-full h-screen">
       <Navbar />
-      <div className="w-full bg-primary dark:bg-primaryDark">
+      <div className="w-full bg-primary mt-10 dark:bg-primaryDark">
         {children}
       </div>
       <Footer />
