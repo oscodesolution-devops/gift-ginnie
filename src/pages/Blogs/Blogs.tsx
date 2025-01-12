@@ -71,8 +71,8 @@ export default function Blogs() {
                 <img src={card.image} className="w-full h-full object-cover" />
               </div>
               <div className="font-bold">{card.title}</div>
-              <div className="text-gray-500 text-xs">{card.date}</div>
-              <div className="text-gray-700 w-full text-sm text-justify">
+              <div className="text-gray-500 text-xs dark:text-white/50">{card.date}</div>
+              <div className="text-gray-700 w-full text-sm text-justify dark:text-white/50">
                 {card.description}
               </div>
             </div>
