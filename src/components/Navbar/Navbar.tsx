@@ -3,11 +3,11 @@ import { IoIosSearch } from "react-icons/io";
 import { RiMenu2Fill } from "react-icons/ri";
 import NavMenu from "../NavMenu/NavMenu";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
+import { useVideoContext } from "../../context/MainVideo";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isInVideoSection, setIsInVideoSection] = useState(true);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const { isInVideoSection } = useVideoContext();
 
   // Disable body scrolling when menu is open
   useEffect(() => {
@@ -23,25 +23,6 @@ export default function Navbar() {
   }, [isMenuOpen]);
 
   // Handle scroll and video section detection
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentPosition = window.scrollY;
-      setScrollPosition(currentPosition);
-
-      // Get video section height
-      const videoSection = document.querySelector(".video-section");
-
-      if (videoSection) {
-        const videoHeight = videoSection.getBoundingClientRect().height;
-        setIsInVideoSection(currentPosition <= videoHeight);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initial check
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   function handleNavMenu() {
     setIsMenuOpen(false);
@@ -49,12 +30,12 @@ export default function Navbar() {
 
   return (
     <div
-      className={`fixed w-full top-0 z-50 transition-transform duration-300 `}
+      className={`fixed w-full top-0 z-50 transition-transform duration-300`}
     >
       <nav
-        className={`flex absolute w-full justify-between items-center px-6 md:px-7 py-6 md:py-6 border-b border-black/5 ${
+        className={`${
           isInVideoSection ? "bg-transparent" : "bg-primary"
-        } dark:bg-primaryDark dark:text-white`}
+        } flex justify-between items-center px-6 md:px-7 py-6 md:py-6 border-b border-black/5 bg-primary dark:bg-primaryDark dark:text-white`}
       >
         <div
           className="text-2xl cursor-pointer"
