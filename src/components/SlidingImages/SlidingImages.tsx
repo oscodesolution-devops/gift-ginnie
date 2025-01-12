@@ -42,7 +42,7 @@ export default function ImageGallery() {
   );
 
   return (
-    <div className="w-full h-[600px] relative overflow-hidden">
+    <div className="w-full relative overflow-hidden">
       <motion.div className="flex gap-4 px-4 md:px-8" style={{ x }}>
         {heroImages.map((image, index) => (
           <motion.div

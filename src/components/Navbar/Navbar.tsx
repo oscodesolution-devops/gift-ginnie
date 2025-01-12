@@ -45,8 +45,8 @@ export default function Navbar() {
           <RiMenu2Fill />
         </div>
         <div
-          className={`text-xl md:text-2xl hidden sm:block  font-bold ${
-            isInVideoSection ? "hidden" : ""
+          className={`text-xl md:text-2xl hidden   font-bold ${
+            isInVideoSection ? "hidden" : "sm:block"
           }`}
         >
           {name}
