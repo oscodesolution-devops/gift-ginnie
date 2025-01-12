@@ -4,6 +4,7 @@ import { FaPinterest } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const footerSocialIcons = [
   {
@@ -67,7 +68,7 @@ const footerTabs: { title: string; tabs: { name: string; link: string }[] }[] =
       tabs: [
         {
           name: "Privacy",
-          link: "/",
+          link: "/privacy-policy",
         },
         {
           name: "Terms",
@@ -102,8 +103,11 @@ export default function Footer() {
               <div className="font-bold text-base pb-4">{item.title}</div>
               <div className="flex flex-col gap-4">
                 {item.tabs.map((tab, index) => (
-                  <div key={index} className="text-gray-500 font-medium">
-                    {tab.name}
+                  <div
+                    key={index}
+                    className="text-gray-500 font-medium cursor-pointer"
+                  >
+                    <Link to={tab.link}>{tab.name}</Link>
                   </div>
                 ))}
               </div>
