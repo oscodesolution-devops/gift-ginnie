@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Subscribe from "../../components/Subscribe/Subscribe";
+import { useNavigate } from "react-router-dom";
 
 interface CardProps {
   image: string;
@@ -59,6 +60,7 @@ const cardsList: CardProps[] = [
 ];
 
 export default function Blogs() {
+  const navigate = useNavigate();
   const [cards] = useState<CardProps[]>(cardsList);
   return (
     <div className="w-full min-h-screen flex justify-center items-center flex-col">
@@ -66,12 +68,18 @@ export default function Blogs() {
         <Breadcrumbs />
         <div className="flex flex-col gap-8  sm:grid sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((card, index) => (
-            <div key={index} className="flex flex-col gap-2 cursor-pointer ">
+            <div
+              key={index}
+              className="flex flex-col gap-2 cursor-pointer "
+              onClick={() => navigate("/blog", { state: { card } })}
+            >
               <div className="w-full h-60">
                 <img src={card.image} className="w-full h-full object-cover" />
               </div>
               <div className="font-bold">{card.title}</div>
-              <div className="text-gray-500 text-xs dark:text-white/50">{card.date}</div>
+              <div className="text-gray-500 text-xs dark:text-white/50">
+                {card.date}
+              </div>
               <div className="text-gray-700 w-full text-sm text-justify dark:text-white/50">
                 {card.description}
               </div>
@@ -79,7 +87,7 @@ export default function Blogs() {
           ))}
         </div>
       </div>
-      <Subscribe/>
+      <Subscribe />
     </div>
   );
 }

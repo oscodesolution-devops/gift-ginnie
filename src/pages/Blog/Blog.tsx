@@ -1,4 +1,6 @@
 import { LuDot } from "react-icons/lu";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 interface IContent {
   title: string;
@@ -22,20 +24,36 @@ const content: IContent = {
 };
 
 export default function Blog() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { card } = location.state || {}; // Access the passed data
+
+  useEffect(() => {
+    if (!card) {
+      // Navigate back to /blogs if no card data is found
+      navigate("/blogs");
+    }
+  }, [card, navigate]);
+
+  if (!card) {
+    // If card is missing, render nothing while navigating
+    return null;
+  }
+
   return (
     <div className="w-full min-h-screen flex justify-center items-center flex-col">
       <div className="px-6 py-16 lg:px-36 md:py-20 dark:text-white w-full flex flex-col gap-8">
         <div className="text-4xl font-bold mx-auto leading-snug flex text-center text-[#454442]">
-          The Evolution of Sustainable Fashion: Trends and Innovations
+          {card.title}
         </div>
 
         <div className="text-gray-500 w-full mx-auto text-center font-semibold flex items-center justify-center">
-          <LuDot className="text-2xl" /> Feb 28, 2022{" "}
+          <LuDot className="text-2xl" /> {card.date}{" "}
           <LuDot className="text-2xl" />{" "}
         </div>
         <div>
           <img
-            src="https://framerusercontent.com/images/zEveiEdh19MdhDXQ8gOEQ6CxIUE.png"
+            src={card.image}
             alt=""
           />
         </div>
