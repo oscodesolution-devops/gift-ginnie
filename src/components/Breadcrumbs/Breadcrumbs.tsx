@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 export default function Breadcrumbs() {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
 
   const pathSegments = location.pathname.split("/").filter(Boolean); // Remove any empty segments
 
