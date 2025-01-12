@@ -2,10 +2,24 @@ import { RiMenu2Fill } from "react-icons/ri";
 import { IoIosSearch } from "react-icons/io";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import NavMenu from "../NavMenu/NavMenu";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+  // Disable body scrolling when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden"; 
+    } else {
+      document.body.style.overflow = "auto"; 
+    }
+
+    // Cleanup to restore body scroll when component unmounts or menu is closed
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isMenuOpen]);
 
   function handleNavMenu() {
     setIsMenuOpen(false);
