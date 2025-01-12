@@ -10,7 +10,9 @@ export default function MainLayout({
   return (
     <div className="w-full h-screen">
       <Navbar />
-      <main className="flex-grow">{children}</main>
+      <div className="w-full min-h-[85%] bg-primary dark:bg-primaryDark">
+        {children}
+      </div>
       <Footer />
     </div>
   );
