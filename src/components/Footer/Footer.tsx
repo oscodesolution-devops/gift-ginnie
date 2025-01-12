@@ -79,7 +79,7 @@ const footerTabs: { title: string; tabs: { name: string; link: string }[] }[] =
 
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-[#0D0D0D] dark:text-white">
+    <footer className="bg-primary dark:bg-primaryDark dark:text-white">
       <div className="py-10 px-10 md:px-20">
         <div className="text-2xl font-bold py-5">GIFT GINNIE</div>
         <div className="pb-8 flex gap-6">

@@ -58,7 +58,7 @@ export default function Subscribe() {
 
       {/* Gradient Overlay */}
       <div
-        className="absolute z-20 inset-0 bg-gradient-to-r from-white dark:from-black via-transparent dark:via-transparent to-white dark:to-black pointer-events-none"
+        className="absolute z-20 inset-0 bg-gradient-to-r from-primary dark:from-black via-transparent dark:via-transparent to-primary dark:to-black pointer-events-none"
         style={{
           mixBlendMode: "lighten",
           backgroundSize: "500% 100%",
