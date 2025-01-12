@@ -1,14 +1,15 @@
-import Footer from "./components/Footer/Footer";
-import Navbar from "./components/Navbar/Navbar";
-import Subscribe from "./components/Subscribe/Subscribe";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
   return (
-    <div className="w-full h-screen">
-      <Navbar/>
-      <Subscribe/>
-      <Footer/>
-    </div>
+    <Router>
+      <MainLayout>
+        <Routes>
+          {/* <Route path="/" element={<Home />} /> */}
+        </Routes>
+      </MainLayout>
+    </Router>
   );
 }
 
