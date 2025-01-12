@@ -7,6 +7,7 @@ import TermsAndConditions from "./pages/TermsAndConditions/TermsAndConditions";
 import FAQ from "./pages/FAQ/FAQ";
 import Contact from "./pages/Contact/Contact";
 import Blogs from "./pages/Blogs/Blogs";
+import Blog from "./pages/Blog/Blog";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <MainLayout>
         <Routes>
           <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
           <Route
