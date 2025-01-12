@@ -1,3 +1,5 @@
+import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
+
 const privacyPolicy: Array<{ title: string; content: string[] }> = [
   {
     title: "Information We Collect:",
@@ -39,9 +41,13 @@ const privacyPolicy: Array<{ title: string; content: string[] }> = [
 
 export default function PrivacyPolicy() {
   return (
-    <div className="w-full min-h-screen  flex justify-center items-center flex-col">
-      <div className="px-5 md:px-20 lg:px-56 py-20 dark:text-white">
-        <div className="uppercase text-3xl md:4xl lg:text-5xl font-bold mb-14">Privacy Policy</div>
+    <div className="w-full min-h-screen flex justify-center items-center flex-col">
+      
+      <div className="px-5 md:px-20 lg:px-56 py-16 md:py-20 dark:text-white">
+      <Breadcrumbs />
+        <div className="uppercase text-3xl md:4xl lg:text-5xl font-bold mb-14">
+          Privacy Policy
+        </div>
         <div className="flex flex-col gap-6">
           <p className="font-semibold">
             At Store, we are committed to protecting your privacy and ensuring
