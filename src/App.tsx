@@ -10,27 +10,30 @@ import Blogs from "./pages/Blogs/Blogs";
 import Blog from "./pages/Blog/Blog";
 import Advisiable from "./pages/Advisiable/Advisiable";
 import Home from "./pages/Home/Home";
+import { VideoProvider } from "./context/MainVideo";
 
 function App() {
   return (
     <Router>
       <ScrollToTop />
-      <MainLayout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/advisiable" element={<Advisiable />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route
-            path="/terms-and-conditions"
-            element={<TermsAndConditions />}
-          />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </MainLayout>
+      <VideoProvider>
+        <MainLayout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/advisiable" element={<Advisiable />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route
+              path="/terms-and-conditions"
+              element={<TermsAndConditions />}
+            />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </MainLayout>
+      </VideoProvider>
     </Router>
   );
 }
