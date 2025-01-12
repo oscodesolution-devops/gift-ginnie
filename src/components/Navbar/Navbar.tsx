@@ -4,6 +4,7 @@ import { RiMenu2Fill } from "react-icons/ri";
 import NavMenu from "../NavMenu/NavMenu";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { useVideoContext } from "../../context/MainVideo";
+import { name } from "../../constants";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,11 +45,11 @@ export default function Navbar() {
           <RiMenu2Fill />
         </div>
         <div
-          className={`text-xl md:text-2xl font-bold ${
+          className={`text-xl md:text-2xl hidden sm:block  font-bold ${
             isInVideoSection ? "hidden" : ""
           }`}
         >
-          GIFT GINNIE
+          {name}
         </div>
         <div className="flex gap-4 md:gap-6">
           <ThemeToggle />
