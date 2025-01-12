@@ -25,7 +25,7 @@ export default function Blog() {
   return (
     <div className="w-full min-h-screen flex justify-center items-center flex-col">
       <div className="px-6 py-16 lg:px-36 md:py-20 dark:text-white w-full flex flex-col gap-8">
-        <div className="text-4xl font-bold mx-auto leading-snug flex text-center ">
+        <div className="text-4xl font-bold mx-auto leading-snug flex text-center text-[#454442]">
           The Evolution of Sustainable Fashion: Trends and Innovations
         </div>
 
@@ -39,7 +39,7 @@ export default function Blog() {
             alt=""
           />
         </div>
-        <div className="font-semibold flex flex-col gap-4 sm:mx-4">
+        <div className="font-semibold flex flex-col gap-4 sm:mx-20 md:mx-30">
           <p>{content.title}</p>
           <ol className="flex flex-col gap-4">
             {content.content.map((item, index) => (
