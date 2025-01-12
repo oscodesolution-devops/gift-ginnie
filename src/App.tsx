@@ -8,6 +8,7 @@ import FAQ from "./pages/FAQ/FAQ";
 import Contact from "./pages/Contact/Contact";
 import Blogs from "./pages/Blogs/Blogs";
 import Blog from "./pages/Blog/Blog";
+import Advisiable from "./pages/Advisiable/Advisiable";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <ScrollToTop />
       <MainLayout>
         <Routes>
+          <Route path="/advisiable" element={<Advisiable />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />

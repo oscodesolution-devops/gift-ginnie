@@ -38,7 +38,7 @@ const footerTabs: { title: string; tabs: { name: string; link: string }[] }[] =
         },
         {
           name: "Advisiable",
-          link: "/",
+          link: "/advisiable",
         },
         {
           name: "Promotions",
