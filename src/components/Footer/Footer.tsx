@@ -72,7 +72,7 @@ const footerTabs: { title: string; tabs: { name: string; link: string }[] }[] =
         },
         {
           name: "Terms",
-          link: "/",
+          link: "/terms-and-conditions",
         },
       ],
     },
