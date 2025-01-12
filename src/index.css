@@ -3,10 +3,15 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-    display: none;
-  }
+  display: none;
+}
 
-  /* For Firefox */
-  body {
-    scrollbar-width: none;
-  }
+/* For Firefox */
+body {
+  scrollbar-width: none;
+}
+
+:root {
+  --primary-color: #ede1d1;
+  --dark-p-color: #0d0d0d;
+}
