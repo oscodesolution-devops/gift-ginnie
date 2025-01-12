@@ -42,9 +42,8 @@ const privacyPolicy: Array<{ title: string; content: string[] }> = [
 export default function PrivacyPolicy() {
   return (
     <div className="w-full min-h-screen flex justify-center items-center flex-col">
-      
       <div className="px-5 md:px-20 lg:px-56 py-16 md:py-20 dark:text-white">
-      <Breadcrumbs />
+        <Breadcrumbs />
         <div className="uppercase text-3xl md:4xl lg:text-5xl font-bold mb-14">
           Privacy Policy
         </div>
