@@ -27,7 +27,7 @@ export default function Navbar() {
   return (
     <>
       <div className="sticky top-0 z-50">
-        <nav className="flex justify-between items-center px-5 md:px-7 py-6 md:py-6 border-b border-black/5 bg-primary dark:bg-primaryDark dark:text-white">
+        <nav className="flex justify-between items-center px-6 md:px-7 py-6 md:py-6 border-b border-black/5 bg-primary dark:bg-primaryDark dark:text-white">
           <div
             className="text-2xl cursor-pointer"
             onClick={() => setIsMenuOpen(true)}
