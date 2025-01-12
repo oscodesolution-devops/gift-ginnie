@@ -1,6 +1,6 @@
 import { CardProps } from "../../types/Types";
 
-export default function ProductCard({card}:{card:CardProps}) {
+export default function ProductCard({ card }: { card: CardProps }) {
   return (
     <div className="flex flex-col gap-2 cursor-pointer" key={card.title}>
       <div className="relative">
