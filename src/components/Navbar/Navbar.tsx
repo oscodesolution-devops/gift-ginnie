@@ -35,7 +35,7 @@ export default function Navbar() {
     >
       <nav
         className={`${
-          isInVideoSection ? "bg-transparent" : "bg-primary"
+          isInVideoSection ? "bg-transparent dark:bg-transparent" : "bg-primary dark:bg-primaryDark"
         } flex justify-between items-center px-6 md:px-7 py-6 md:py-6 border-b border-black/5 bg-primary dark:bg-primaryDark dark:text-white`}
       >
         <div
@@ -45,7 +45,7 @@ export default function Navbar() {
           <RiMenu2Fill />
         </div>
         <div
-          className={`text-xl md:text-2xl hidden   font-bold ${
+          className={`text-xl md:text-2xl hidden font-bold ${
             isInVideoSection ? "hidden" : "sm:block"
           }`}
         >
