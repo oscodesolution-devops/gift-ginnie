@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import HomeHeading from "../HomeHeading/HomeHeading";
 
 // Custom hook for theme management
 const useTheme = () => {
@@ -47,9 +48,7 @@ export default function HeroCards() {
   return (
     <div>
       <div>
-        <div className="w-full text-center uppercase font-bold text-3xl px-4 sm:text-4xl mb-4 dark:text-white">
-          Elevating Your Style Game
-        </div>
+        <HomeHeading heading={"Elevating Your Style Game"} />
         <div className="w-full text-center uppercase text-sm px-20 dark:text-white/70">
           Discover the Perfect Blend of Comfort and Trend with Our Exclusive
           Collection. Explore Deals on Jeans, Sneakers, and More!
@@ -59,11 +58,13 @@ export default function HeroCards() {
         {/* Left Column */}
         <div className="space-y-6 flex flex-col h-full">
           <div
-            className={`flex cursor-pointer flex-col justify-between bg-white rounded-lg p-6 h-full ${
+            className={`flex cursor-pointer flex-col justify-between bg-white border-2 rounded-lg p-6 h-full ${
               theme === "light" ? "card-gradient" : "dark:bg-[#1e1e1e]"
             }`}
           >
-            <h2 className="text-3xl font-bold text-center mb-4 dark:text-white/90">DIARY</h2>
+            <h2 className="text-3xl font-bold text-center mb-4 dark:text-white/90">
+              DIARY
+            </h2>
             <p className="text-sm text-gray-600 text-center mb-6 dark:text-white/70">
               Style and comfort meet in our collection of jeans. Discover the
               latest trends and perfect cuts for an impeccable look.
@@ -78,11 +79,13 @@ export default function HeroCards() {
           </div>
 
           <div
-            className={`flex flex-col cursor-pointer justify-between bg-white rounded-lg p-6 h-full ${
+            className={`flex flex-col cursor-pointer justify-between bg-white rounded-lg border-2 p-6 h-full ${
               theme === "light" ? "card-gradient" : "dark:bg-[#1e1e1e]"
             }`}
           >
-            <h2 className="text-3xl font-bold text-center mb-4 dark:text-white/90">CHOCOLATES</h2>
+            <h2 className="text-3xl font-bold text-center mb-4 dark:text-white/90">
+              CHOCOLATES
+            </h2>
             <div className="aspect-[16/9] overflow-hidden">
               <img
                 src="https://framerusercontent.com/images/6c9sH3EbYku4CzpysCAihW3eX4.jpg?scale-down-to=512"
@@ -95,7 +98,7 @@ export default function HeroCards() {
 
         {/* Middle Column */}
         <div
-          className={`flex flex-col cursor-pointer justify-between bg-white rounded-lg p-6 h-full ${
+          className={`flex border-2 flex-col cursor-pointer justify-between bg-white rounded-lg p-6 h-full ${
             theme === "light" ? "card-gradient" : "dark:bg-[#1e1e1e]"
           }`}
         >
@@ -106,7 +109,9 @@ export default function HeroCards() {
               className="w-full h-full object-cover"
             />
           </div>
-          <h2 className="text-3xl font-bold text-center mb-4 dark:text-white/90">PROMOTIONS</h2>
+          <h2 className="text-3xl font-bold text-center mb-4 dark:text-white/90">
+            PROMOTIONS
+          </h2>
           <p className="text-sm text-gray-600 text-center mb-6 dark:text-white/70">
             Explore exclusive deals on our top products. The perfect opportunity
             to enrich your wardrobe with trendy pieces at affordable prices.
@@ -123,11 +128,13 @@ export default function HeroCards() {
         {/* Right Column */}
         <div className="space-y-6 flex flex-col h-full">
           <div
-            className={`flex flex-col cursor-pointer justify-between bg-white rounded-lg p-6 h-full ${
+            className={`flex flex-col border-2 cursor-pointer justify-between bg-white rounded-lg p-6 h-full ${
               theme === "light" ? "card-gradient" : "dark:bg-[#1e1e1e]"
             }`}
           >
-            <h2 className="text-3xl font-bold text-center mb-4 dark:text-white/90">HEADPHONES</h2>
+            <h2 className="text-3xl font-bold text-center mb-4 dark:text-white/90">
+              HEADPHONES
+            </h2>
             <div className="aspect-[4/3] overflow-hidden">
               <img
                 src="https://framerusercontent.com/images/MSCMQyOWQbMvFKbwlgcAvJhuxLo.jpg?scale-down-to=512"
@@ -138,11 +145,13 @@ export default function HeroCards() {
           </div>
 
           <div
-            className={`flex flex-col cursor-pointer justify-between bg-white rounded-lg p-6 h-full ${
+            className={`flex flex-col border-2 cursor-pointer justify-between bg-white rounded-lg p-6 h-full ${
               theme === "light" ? "card-gradient" : "dark:bg-[#1e1e1e]"
             }`}
           >
-            <h2 className="text-3xl font-bold text-center mb-4 dark:text-white/90 ">PERFUMES</h2>
+            <h2 className="text-3xl font-bold text-center mb-4 dark:text-white/90 ">
+              PERFUMES
+            </h2>
             <p className="text-sm text-gray-600 text-center mb-6 dark:text-white/70">
               Passion for fashion and comfort is reflected in every pair of
               sneakers. Experience style and functionality in a single step.
