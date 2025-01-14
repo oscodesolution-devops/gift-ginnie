@@ -1,6 +1,6 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
-const heroImages = [
+const placeholderImages = [
   {
     image:
       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
@@ -32,21 +32,40 @@ const heroImages = [
 ];
 
 export default function ImageGallery() {
-  const { scrollYProgress } = useScroll();
-
-  // Reduced movement range for smaller scroll effect
-  const x = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -200] // Smaller pixel range for subtle movement
-  );
-
   return (
     <div className="w-full relative overflow-hidden">
-      <motion.div className="flex gap-4 px-4 md:px-8" style={{ x }}>
-        {heroImages.map((image, index) => (
+      <motion.div
+        className="flex gap-4 px-4 md:px-8"
+        animate={{
+          x: [0, -1400], // Adjust this value based on your total content width
+        }}
+        transition={{
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: 20,
+            ease: "linear",
+          },
+        }}
+      >
+        {/* First set of images */}
+        {placeholderImages.map((image, index) => (
           <motion.div
-            key={index}
+            key={`first-${index}`}
+            className="relative flex-shrink-0 w-[200px] h-[300px] rounded-lg overflow-hidden"
+          >
+            <img
+              src={image.image}
+              alt={`Gallery image ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        ))}
+
+        {/* Duplicate set of images for seamless loop */}
+        {placeholderImages.map((image, index) => (
+          <motion.div
+            key={`second-${index}`}
             className="relative flex-shrink-0 w-[200px] h-[300px] rounded-lg overflow-hidden"
           >
             <img
