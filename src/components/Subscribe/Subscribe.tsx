@@ -2,58 +2,65 @@ import { motion } from "framer-motion";
 
 export default function Subscribe() {
   return (
-    <div className="relative w-full h-[90%] overflow-hidden">
-      {/* Scrolling Images */}
+    <div className="relative w-full h-[90vh] mt-20 overflow-hidden">
+      {/* Scrolling Images Container */}
       <motion.div
-        className="flex h-[90vh]"
+        className="flex h-full"
         initial={{ x: 0 }}
-        animate={{ x: "-100%" }}
+        animate={{ x: "-50%" }}
         transition={{
           repeat: Infinity,
-          duration: 30, // Adjust the speed
+          duration: 30,
           ease: "linear",
         }}
       >
-        <img
-          src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
-          alt="Infinite scroll"
-          className="w-auto h-full pb-20 pt-32"
-        />
-        <img
-          src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
-          alt="Infinite scroll"
-          className="w-auto h-full pb-20 pt-32"
-        />
-        <img
-          src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
-          alt="Infinite scroll"
-          className="w-auto h-full pb-20 pt-32"
-        />
-        <img
-          src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
-          alt="Infinite scroll"
-          className="w-auto h-full pb-20 pt-32"
-        />
-        <img
-          src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
-          alt="Infinite scroll"
-          className="w-auto h-full pb-20 pt-32"
-        />
-        <img
-          src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
-          alt="Infinite scroll"
-          className="w-auto h-full pb-20 pt-32"
-        />
-        <img
-          src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
-          alt="Infinite scroll"
-          className="w-auto h-full pb-20 pt-32"
-        />
-        <img
-          src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
-          alt="Infinite scroll"
-          className="w-auto h-full pb-20 pt-32"
-        />
+        {/* First set of images */}
+        <div className="flex h-full flex-shrink-0">
+          <img
+            src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
+            alt="Infinite scroll"
+            className="h-full w-[300px] object-contain  flex-shrink-0 stretched-image"
+          />
+          <img
+            src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
+            alt="Infinite scroll"
+            className="h-full w-[300px] object-contain  flex-shrink-0 stretched-image"
+          />
+          <img
+            src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
+            alt="Infinite scroll"
+            className="h-full w-[300px] object-contain flex-shrink-0 stretched-image"
+          />
+          <img
+            src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
+            alt="Infinite scroll"
+            className="h-full w-[300px] object-contain  flex-shrink-0 stretched-image"
+          />
+        </div>
+
+        {/* Duplicate set for seamless loop */}
+        <div className="flex h-full flex-shrink-0">
+          <img
+            src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
+            alt="Infinite scroll"
+            className="h-full w-[300px] object-contain  flex-shrink-0 stretched-image"
+          />
+          <img
+            src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
+            alt="Infinite scroll"
+            className="h-full w-[300px] object-contain  flex-shrink-0 stretched-image"
+          />
+          <img
+            src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
+            alt="Infinite scroll"
+            className="h-full w-[300px] object-contain  flex-shrink-0 stretched-image"
+          />
+          <img
+            src="https://framerusercontent.com/images/d20Z0EMhlfZPRfWYcdIKfVAUpU.png"
+            alt="Infinite scroll"
+            className="h-full w-[300px] object-contain  flex-shrink-0 stretched-image"
+          />
+        </div>
       </motion.div>
 
       {/* Gradient Overlay */}
@@ -61,7 +68,7 @@ export default function Subscribe() {
         className="absolute z-20 inset-0 bg-gradient-to-r from-primary dark:from-black via-transparent dark:via-transparent to-primary dark:to-black pointer-events-none"
         style={{
           mixBlendMode: "lighten",
-          backgroundSize: "500% 100%",
+          backgroundSize: "100% 100%",
         }}
       ></div>
 

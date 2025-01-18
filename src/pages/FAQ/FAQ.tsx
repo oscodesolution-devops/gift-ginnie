@@ -123,7 +123,9 @@ export default function FAQ() {
                   <div key={contentIndex}>
                     <div
                       onClick={() => toggleAnswer(faqIndex, contentIndex)} // Update on click
-                      className={`flex ${content.isOpen ? "": "mb-7"} justify-between items-center cursor-pointer w-full`}
+                      className={`flex ${
+                        content.isOpen ? "" : "mb-7"
+                      } justify-between items-center cursor-pointer w-full`}
                     >
                       <span className="text-lg">{content.ques}</span>
                       <span>

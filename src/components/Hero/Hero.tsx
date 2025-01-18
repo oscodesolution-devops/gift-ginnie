@@ -3,7 +3,7 @@ import ImageGallery from "../SlidingImages/SlidingImages";
 
 export default function Hero() {
   return (
-    <div className="w-full pt-12 pb-20 dark:text-white/70">
+    <div className="w-full pt-12 pb-20 dark:text-white">
       <div className="w-full text-center uppercase text-sm mb-4">
         Welcome to
       </div>
