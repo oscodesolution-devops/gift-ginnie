@@ -2,6 +2,7 @@ import { IoMdClose } from "react-icons/io";
 import { FaChevronDown } from "react-icons/fa";
 import { FaChevronUp } from "react-icons/fa";
 import { useState } from "react";
+import { Link } from "react-router-dom"; // Import Link from React Router DOM
 
 const navItems: { name: string; list: { name: string; link: string }[] }[] = [
   {
@@ -9,42 +10,51 @@ const navItems: { name: string; list: { name: string; link: string }[] }[] = [
     list: [],
   },
   {
-    name: "product",
+    name: "Product",
     list: [
       {
-        name: "All",
+        name: "Home",
         link: "/",
       },
       {
-        name: "New Arrivals",
-        link: "/",
+        name: "Advisiable",
+        link: "/advisiable",
       },
       {
-        name: "Best Sellers",
+        name: "Promotions",
         link: "/",
       },
     ],
   },
   {
-    name: "short-by",
+    name: "Company",
     list: [
       {
-        name: "Views",
-        link: "/",
+        name: "Contact",
+        link: "/contact",
       },
       {
-        name: "Price",
-        link: "/",
+        name: "Blog",
+        link: "/blogs",
       },
       {
-        name: "Color",
-        link: "/",
+        name: "FAQ",
+        link: "/faq",
       },
     ],
   },
   {
-    name: "blog",
-    list: [],
+    name: "Legal",
+    list: [
+      {
+        name: "Privacy",
+        link: "/privacy-policy",
+      },
+      {
+        name: "Terms",
+        link: "/terms-and-conditions",
+      },
+    ],
   },
   {
     name: "faq",
@@ -112,7 +122,8 @@ export default function NavMenu({
               {openItem === item.name && item.list.length > 0 && (
                 <div>
                   {item.list.map((list, index) => (
-                    <div
+                    <Link
+                      to={list.link} // Use React Router DOM's Link for navigation
                       key={index}
                       style={{
                         borderBottom:
@@ -120,10 +131,11 @@ export default function NavMenu({
                             ? "none"
                             : ".1px solid gray",
                       }}
-                      className="py-5 text-xs lg:text-base px-10 cursor-pointer"
+                      className="py-5 text-xs lg:text-base px-10 cursor-pointer block"
+                      onClick={handleNavMenu} // Close menu on click
                     >
                       {list.name}
-                    </div>
+                    </Link>
                   ))}
                 </div>
               )}
