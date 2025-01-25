@@ -1,1 +1,1 @@
-export const name: string = "CORPORATE GIFTING PRO";
+export const name: string = "GIFT GINNIE";
