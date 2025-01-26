@@ -12,6 +12,8 @@ import Advisiable from "./pages/Advisiable/Advisiable";
 import Home from "./pages/Home/Home";
 import { VideoProvider } from "./context/MainVideo";
 import Product from "./pages/Product/Product";
+import LoginScreen from "./pages/login/Login";
+import OTPInput from "./pages/OtpVerification/OtpVerification";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
               path="/terms-and-conditions"
               element={<TermsAndConditions />}
             />
+            <Route path="/login" element={<LoginScreen />} />
+            <Route path="/otp" element={<OTPInput />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
