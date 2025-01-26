@@ -70,7 +70,19 @@ export const getPopularCategories = async (token: string) => {
   return response.data;
 };
 export const getPopularProducts = async (token: string) => {
-  const response = await axios.get(`${BASE_URL}/api/v1/products/popular-products/`, {
+  const response = await axios.get(
+    `${BASE_URL}/api/v1/products/popular-products/`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.data;
+};
+export const getProduct = async (token: string, id: number) => {
+  const response = await axios.get(`${BASE_URL}/api/v1/products/${id}/`, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -78,8 +90,8 @@ export const getPopularProducts = async (token: string) => {
   });
   return response.data;
 };
-export const getProduct = async (token: string, id: number) => {
-  const response = await axios.get(`${BASE_URL}/api/v1/products/${id}/`, {
+export const getAllProduct = async (token: string) => {
+  const response = await axios.get(`${BASE_URL}/api/v1/products/`, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
