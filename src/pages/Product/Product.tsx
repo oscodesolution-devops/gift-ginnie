@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import Hero from "../../components/Hero/Hero";
 import Reviews from "../../components/Reviews/Reviews";
@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getProduct } from "../../api/api";
 import { useAuth } from "../../context/Auth";
 import { TProduct } from "../../types/Types";
+import { useParams } from "react-router-dom";
 
 const productDescription: { title: string; content: string }[] = [
   {
@@ -27,24 +28,30 @@ const productDescription: { title: string; content: string }[] = [
   },
 ];
 
-
-
 export default function Product() {
+  const { productId } = useParams();
   const { accessToken } = useAuth();
   const [token, setToken] = useState<string | null>(null);
+
   const {
     data: product,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["product", accessToken],
-    queryFn: async () => getProduct(token as string, 39),
-    enabled: !!accessToken,
+    queryKey: ["product", token, productId],
+    queryFn: async () => {
+      if (!token || !productId) {
+        throw new Error("Missing token or productId");
+      }
+      return getProduct(token, parseInt(productId, 10));
+    },
+    enabled: !!accessToken && !!productId, // Ensure both token and productId are available
   });
+
+  console.log(productId, "product");
 
   useEffect(() => {
     if (accessToken) {
-      console.log(accessToken);
       setToken(accessToken);
     }
   }, [accessToken]);

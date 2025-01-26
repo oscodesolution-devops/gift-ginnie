@@ -1,84 +1,84 @@
 import { useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Subscribe from "../../components/Subscribe/Subscribe";
-import { CardProps, TProduct } from "../../types/Types";
+import {  TProduct } from "../../types/Types";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProduct } from "../../api/api";
 import { useAuth } from "../../context/Auth";
 
-const cardsList = [
-  {
-    image:
-      "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-    stock: "full-stock",
-    title: "Perfumes",
-    discount: "50%",
-    price: "$50.00",
-    originalPrice: "$100",
-    styles: "2 Styles available",
-  },
-  {
-    image:
-      "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-    stock: "full-stock",
-    title: "Perfumes",
-    discount: "50%",
-    price: "$50.00",
-    originalPrice: "$100",
-    styles: "2 Styles available",
-  },
-  {
-    image:
-      "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-    stock: "full-stock",
-    title: "Perfumes",
-    discount: "50%",
-    price: "$50.00",
-    originalPrice: "$100",
-    styles: "2 Styles available",
-  },
-  {
-    image:
-      "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-    stock: "full-stock",
-    title: "Perfumes",
-    discount: "50%",
-    price: "$50.00",
-    originalPrice: "$100",
-    styles: "2 Styles available",
-  },
-  {
-    image:
-      "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-    stock: "full-stock",
-    title: "Perfumes",
-    discount: "50%",
-    price: "$50.00",
-    originalPrice: "$100",
-    styles: "2 Styles available",
-  },
-  {
-    image:
-      "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-    stock: "full-stock",
-    title: "Perfumes",
-    discount: "50%",
-    price: "$50.00",
-    originalPrice: "$100",
-    styles: "2 Styles available",
-  },
-  {
-    image:
-      "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-    stock: "full-stock",
-    title: "Perfumes",
-    discount: "50%",
-    price: "$50.00",
-    originalPrice: "$100",
-    styles: "2 Styles available",
-  },
-];
+// const cardsList = [
+//   {
+//     image:
+//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
+//     stock: "full-stock",
+//     title: "Perfumes",
+//     discount: "50%",
+//     price: "$50.00",
+//     originalPrice: "$100",
+//     styles: "2 Styles available",
+//   },
+//   {
+//     image:
+//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
+//     stock: "full-stock",
+//     title: "Perfumes",
+//     discount: "50%",
+//     price: "$50.00",
+//     originalPrice: "$100",
+//     styles: "2 Styles available",
+//   },
+//   {
+//     image:
+//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
+//     stock: "full-stock",
+//     title: "Perfumes",
+//     discount: "50%",
+//     price: "$50.00",
+//     originalPrice: "$100",
+//     styles: "2 Styles available",
+//   },
+//   {
+//     image:
+//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
+//     stock: "full-stock",
+//     title: "Perfumes",
+//     discount: "50%",
+//     price: "$50.00",
+//     originalPrice: "$100",
+//     styles: "2 Styles available",
+//   },
+//   {
+//     image:
+//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
+//     stock: "full-stock",
+//     title: "Perfumes",
+//     discount: "50%",
+//     price: "$50.00",
+//     originalPrice: "$100",
+//     styles: "2 Styles available",
+//   },
+//   {
+//     image:
+//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
+//     stock: "full-stock",
+//     title: "Perfumes",
+//     discount: "50%",
+//     price: "$50.00",
+//     originalPrice: "$100",
+//     styles: "2 Styles available",
+//   },
+//   {
+//     image:
+//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
+//     stock: "full-stock",
+//     title: "Perfumes",
+//     discount: "50%",
+//     price: "$50.00",
+//     originalPrice: "$100",
+//     styles: "2 Styles available",
+//   },
+// ];
 
 
 
