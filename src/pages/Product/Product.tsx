@@ -1,9 +1,12 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import Hero from "../../components/Hero/Hero";
 import Reviews from "../../components/Reviews/Reviews";
 import Trending from "../../components/TrendingSection/Trending";
 import Subscribe from "../../components/Subscribe/Subscribe";
+import { useQuery } from "@tanstack/react-query";
+import { getProduct } from "../../api/api";
+import { useAuth } from "../../context/Auth";
 
 const productDescription: { title: string; content: string }[] = [
   {
@@ -23,9 +26,67 @@ const productDescription: { title: string; content: string }[] = [
   },
 ];
 
+type TProduct = {
+  id: number;
+  name: string;
+  description: string;
+  category: {
+    id: number;
+    name: string;
+    description: string;
+    image: string;
+  };
+  images: {
+    id: number;
+    image: string;
+    product: number;
+  }[];
+  in_stock: boolean;
+  rating: number;
+  original_price: string;
+  selling_price: string;
+  brand: string;
+  product_type: string;
+  is_liked: boolean;
+};
+
 export default function Product() {
+  const { accessToken } = useAuth();
+  const [token, setToken] = useState<string | null>(null);
+  const {
+    data: product,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["product", accessToken],
+    queryFn: async () => getProduct(token as string, 39),
+    enabled: !!accessToken,
+  });
+
+  useEffect(() => {
+    if (accessToken) {
+      console.log(accessToken);
+      setToken(accessToken);
+    }
+  }, [accessToken]);
+
+  if (isLoading) {
+    return <div>loading</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  console.log(product, "product");
+
+  return <ProductInfo product={product.data as TProduct} />;
+}
+
+function ProductInfo({ product }: { product: TProduct }) {
   const [openDescription, setOpenDescription] = useState(-1);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [activeImage, setActiveImage] = useState(product.category.image);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
@@ -60,8 +121,8 @@ export default function Product() {
         <div className="w-full md:sticky md:top-20 h-auto md:h-[calc(100vh-2rem)] mb-6 md:mb-0">
           <img
             className="w-full h-[300px] md:h-[90%] object-cover"
-            src="https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024"
-            alt=""
+            src={activeImage}
+            alt={product.name}
           />
         </div>
 
@@ -71,32 +132,49 @@ export default function Product() {
           className="dark:text-primary md:h-[calc(100vh-2rem)] md:overflow-y-auto custom-scrollbar"
         >
           <div className="flex flex-col gap-4 border-b dark:border-white/30 pb-6">
-            <div>Jeans</div>
-            <div className="font-bold text-3xl md:text-5xl">Perfumes</div>
+            <div>{product.category.name}</div>
+            <div className="font-bold text-3xl md:text-5xl">{product.name}</div>
             <div className="flex gap-2 flex-wrap">
-              <CategoryStyle category="full-stock" />
-              <CategoryStyle category="Men" />
+              <CategoryStyle category={product.product_type} />
             </div>
           </div>
 
           <div className="flex justify-between items-center py-6 border-b dark:border-white/30">
-            <div className="text-lg md:text-xl font-thin">$50.00</div>
+            <div className="text-lg md:text-xl font-thin">
+              ${product.original_price}
+            </div>
             <div className="flex gap-4 text-sm">
-              <div className="line-through">$100</div>
-              <div className="bg-black/10 px-1 dark:bg-white/10">50%</div>
+              <div className="line-through">${product.selling_price}</div>
+              <div className="bg-black/10 px-1 dark:bg-white/10">
+                {Math.round(
+                  (1 -
+                    parseInt(product.selling_price) /
+                      parseInt(product.original_price)) *
+                    100
+                )}
+                %
+              </div>
             </div>
           </div>
 
           <div className="py-6 border-b dark:border-white/30 flex flex-col gap-4">
             <div>Choose Other Versions</div>
             <div className="flex gap-2 flex-wrap">
-              <OtherVersionImages imageUrl="https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024" />
-              <OtherVersionImages imageUrl="https://framerusercontent.com/images/mxOD2EdPpQTvsdb7pn12OcLFBk.png?scale-down-to=512" />
-              <OtherVersionImages imageUrl="https://framerusercontent.com/images/awfeManzhDFj7yyIY09lfzkGQQ.jpg?scale-down-to=1024" />
+              <OtherVersionImages
+                imageUrl={product.category.image}
+                setActiveImage={setActiveImage}
+              />
+              {product.images.map((image) => (
+                <OtherVersionImages
+                  imageUrl={image.image}
+                  key={image.id}
+                  setActiveImage={setActiveImage}
+                />
+              ))}
             </div>
           </div>
 
-          <div className="py-6 border-b dark:border-white/30 flex flex-col gap-4">
+          {/* <div className="py-6 border-b dark:border-white/30 flex flex-col gap-4">
             <div>Choose the size</div>
             <div className="flex gap-2 flex-wrap">
               <DifferentSizes size="S" />
@@ -104,7 +182,7 @@ export default function Product() {
               <DifferentSizes size="L" />
               <DifferentSizes size="XL" />
             </div>
-          </div>
+          </div> */}
 
           <div className="py-6 flex flex-col gap-4">
             {productDescription.map((description, index) => (
@@ -140,8 +218,8 @@ export default function Product() {
       </div>
       <Hero />
       <Reviews />
-      <Trending/>
-      <Subscribe/>
+      <Trending />
+      <Subscribe />
     </div>
   );
 }
@@ -154,18 +232,27 @@ function CategoryStyle({ category }: { category: string }) {
   );
 }
 
-function OtherVersionImages({ imageUrl }: { imageUrl: string }) {
+function OtherVersionImages({
+  imageUrl,
+  setActiveImage,
+}: {
+  imageUrl: string;
+  setActiveImage: (imageUrl: string) => void;
+}) {
   return (
-    <div className="w-14 h-14 md:w-16 md:h-16">
+    <div
+      className="w-14 h-14 md:w-16 md:h-16 cursor-pointer"
+      onClick={() => setActiveImage(imageUrl)}
+    >
       <img src={imageUrl} alt="" className="w-full h-full object-cover" />
     </div>
   );
 }
 
-function DifferentSizes({ size }: { size: string }) {
-  return (
-    <div className="border-1 cursor-pointer uppercase border-black dark:border-primary border max-w-fit px-2 md:px-3 py-1">
-      {size}
-    </div>
-  );
-}
+// function DifferentSizes({ size }: { size: string }) {
+//   return (
+//     <div className="border-1 cursor-pointer uppercase border-black dark:border-primary border max-w-fit px-2 md:px-3 py-1">
+//       {size}
+//     </div>
+//   );
+// }
