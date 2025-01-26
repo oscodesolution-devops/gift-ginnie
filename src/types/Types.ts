@@ -22,3 +22,27 @@ export type TPopularProductItem = {
   image: string;
   product: number;
 };
+
+export type TProduct = {
+  id: number;
+  name: string;
+  description: string;
+  category: {
+    id: number;
+    name: string;
+    description: string;
+    image: string;
+  };
+  images: {
+    id: number;
+    image: string;
+    product: number;
+  }[];
+  in_stock: boolean;
+  rating: number;
+  original_price: string;
+  selling_price: string;
+  brand: string;
+  product_type: string;
+  is_liked: boolean;
+};

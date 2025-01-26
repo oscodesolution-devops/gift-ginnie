@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Subscribe from "../../components/Subscribe/Subscribe";
-import { CardProps } from "../../types/Types";
+import { CardProps, TProduct } from "../../types/Types";
 import ProductCard from "../../components/ProductCard/ProductCard";
+import { useQuery } from "@tanstack/react-query";
+import { getAllProduct } from "../../api/api";
+import { useAuth } from "../../context/Auth";
 
 const cardsList = [
   {
@@ -77,14 +80,44 @@ const cardsList = [
   },
 ];
 
+
+
 export default function Advisiable() {
-  const [cards, setCards] = useState<CardProps[]>(cardsList);
+  const { accessToken } = useAuth();
+  const [token, setToken] = useState<string | null>(null);
+  const {
+    data: allProducts,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["allProducts", accessToken],
+    queryFn: async () => getAllProduct(token as string),
+    enabled: !!accessToken,
+  });
+
+  useEffect(() => {
+    if (accessToken) {
+      console.log(accessToken);
+      setToken(accessToken);
+    }
+  }, [accessToken]);
+
+  if (isLoading) {
+    return <div>loading</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  console.log(allProducts, "product");
+
   return (
     <div className="w-full min-h-screen flex justify-center items-center flex-col">
       <div className="px-6 py-16  md:py-20 dark:text-white w-full">
         <Breadcrumbs />
         <div className="flex flex-col gap-8  sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {cards.map((card: CardProps) => (
+          {allProducts?.data.map((card: TProduct) => (
             <ProductCard card={card} />
           ))}
         </div>

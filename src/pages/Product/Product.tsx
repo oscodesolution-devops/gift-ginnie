@@ -7,6 +7,7 @@ import Subscribe from "../../components/Subscribe/Subscribe";
 import { useQuery } from "@tanstack/react-query";
 import { getProduct } from "../../api/api";
 import { useAuth } from "../../context/Auth";
+import { TProduct } from "../../types/Types";
 
 const productDescription: { title: string; content: string }[] = [
   {
@@ -26,29 +27,7 @@ const productDescription: { title: string; content: string }[] = [
   },
 ];
 
-type TProduct = {
-  id: number;
-  name: string;
-  description: string;
-  category: {
-    id: number;
-    name: string;
-    description: string;
-    image: string;
-  };
-  images: {
-    id: number;
-    image: string;
-    product: number;
-  }[];
-  in_stock: boolean;
-  rating: number;
-  original_price: string;
-  selling_price: string;
-  brand: string;
-  product_type: string;
-  is_liked: boolean;
-};
+
 
 export default function Product() {
   const { accessToken } = useAuth();
