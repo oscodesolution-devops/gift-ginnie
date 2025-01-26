@@ -1,8 +1,10 @@
 import { TProduct } from "../../types/Types";
+import { Link } from "react-router-dom";
 
 export default function ProductCard({ card }: { card: TProduct }) {
   return (
-    <div className="flex flex-col gap-2 cursor-pointer" key={card.id}>
+    <Link to={`/product/${card.id}`}>
+    <div className="flex flex-col gap-2 cursor-pointer" key={card.id} >
       <div className="relative">
         <img
           src={card.category.image}
@@ -32,5 +34,6 @@ export default function ProductCard({ card }: { card: TProduct }) {
         </div>
       </div>
     </div>
+    </Link>
   );
 }
