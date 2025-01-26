@@ -78,3 +78,12 @@ export const getPopularProducts = async (token: string) => {
   });
   return response.data;
 };
+export const getProduct = async (token: string, id: number) => {
+  const response = await axios.get(`${BASE_URL}/api/v1/products/${id}/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  return response.data;
+};
