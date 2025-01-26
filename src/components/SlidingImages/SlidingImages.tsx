@@ -44,9 +44,6 @@ type TCarouselItem = {
   link: string;
   is_active: boolean;
 };
-type TCarouselItems = {
-  data: TCarouselItem[];
-};
 
 export default function ImageGallery() {
   const { accessToken, isAuthenticated } = useAuth();
@@ -197,7 +194,31 @@ export default function ImageGallery() {
         }}
       >
         {/* First set of images */}
-        {placeholderImages?.data.map((image: TCarouselItem, index: number) => (
+        {placeholderImages.map((image, index: number) => (
+          <motion.div
+            key={`first-${index}`}
+            className="relative flex-shrink-0 w-[200px] h-[300px] rounded-lg overflow-hidden"
+          >
+            <img
+              src={image.image}
+              alt={`Gallery image ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        ))}
+        {placeholderImages.map((image, index: number) => (
+          <motion.div
+            key={`first-${index}`}
+            className="relative flex-shrink-0 w-[200px] h-[300px] rounded-lg overflow-hidden"
+          >
+            <img
+              src={image.image}
+              alt={`Gallery image ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        ))}
+        {placeholderImages.map((image, index: number) => (
           <motion.div
             key={`first-${index}`}
             className="relative flex-shrink-0 w-[200px] h-[300px] rounded-lg overflow-hidden"
@@ -210,33 +231,8 @@ export default function ImageGallery() {
           </motion.div>
         ))}
 
-        {/* Duplicate set of images for seamless loop */}
-        {placeholderImages?.data.map((image: TCarouselItem, index: number) => (
-          <motion.div
-            key={`second-${index}`}
-            className="relative flex-shrink-0 w-[200px] h-[300px] rounded-lg overflow-hidden"
-          >
-            <img
-              src={image.image}
-              alt={`Gallery image ${index + 1}`}
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-        ))}
-        {placeholderImages?.data.map((image: TCarouselItem, index: number) => (
-          <motion.div
-            key={`third-${index}`}
-            className="relative flex-shrink-0 w-[200px] h-[300px] rounded-lg overflow-hidden"
-          >
-            <img
-              src={image.image}
-              alt={`Gallery image ${index + 1}`}
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-        ))}
+        
       </motion.div>
     </div>
   );
 }
-
