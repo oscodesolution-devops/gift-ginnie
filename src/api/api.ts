@@ -44,3 +44,16 @@ export const verifyOTP = async (
   const response = await axios.request(config);
   return response.data;
 };
+
+export const getCarouselImages = async (token: string) => {
+  const response = await axios.get(
+    `${BASE_URL}/api/v1/products/carausel-items/`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.data;
+};
