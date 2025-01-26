@@ -7,3 +7,12 @@ export interface CardProps {
   originalPrice: string;
   styles: string;
 }
+
+export type TPopularCategories = {
+  category_id: number;
+  category_name: string;
+  average_rating: number;
+  total_reviews: number;
+  image: string;
+  category_description: string;
+};
