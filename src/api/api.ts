@@ -57,3 +57,24 @@ export const getCarouselImages = async (token: string) => {
   );
   return response.data;
 };
+export const getPopularCategories = async (token: string) => {
+  const response = await axios.get(
+    `${BASE_URL}/api/v1/products/popular-categories/`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.data;
+};
+export const getCategories = async (token: string) => {
+  const response = await axios.get(`${BASE_URL}/api/v1/products/categories/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  return response.data;
+};
