@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://18.218.49.219:8000;";
+const BASE_URL = "http://18.218.49.219:8000";
 
 export const sendOTP = async (phoneNumber: string, countryCode: string) => {
   const config = {
