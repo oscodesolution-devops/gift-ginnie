@@ -14,33 +14,36 @@ import { VideoProvider } from "./context/MainVideo";
 import Product from "./pages/Product/Product";
 import LoginScreen from "./pages/login/Login";
 import OTPInput from "./pages/OtpVerification/OtpVerification";
+import { AuthProvider } from "./context/Auth";
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <VideoProvider>
-        <MainLayout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/advisiable" element={<Advisiable />} />
-            <Route path="/product" element={<Product />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route
-              path="/terms-and-conditions"
-              element={<TermsAndConditions />}
-            />
-            <Route path="/login" element={<LoginScreen />} />
-            <Route path="/otp" element={<OTPInput />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </MainLayout>
-      </VideoProvider>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <ScrollToTop />
+        <VideoProvider>
+          <MainLayout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/advisiable" element={<Advisiable />} />
+              <Route path="/product" element={<Product />} />
+              <Route path="/blogs" element={<Blogs />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route
+                path="/terms-and-conditions"
+                element={<TermsAndConditions />}
+              />
+              <Route path="/login" element={<LoginScreen />} />
+              <Route path="/otp" element={<OTPInput />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </MainLayout>
+        </VideoProvider>
+      </Router>
+    </AuthProvider>
   );
 }
 
