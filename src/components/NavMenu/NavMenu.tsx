@@ -2,67 +2,36 @@ import { IoMdClose } from "react-icons/io";
 import { FaChevronDown } from "react-icons/fa";
 import { FaChevronUp } from "react-icons/fa";
 import { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link from React Router DOM
+import { Link, useNavigate } from "react-router-dom"; // Import Link from React Router DOM
 
-const navItems: { name: string; list: { name: string; link: string }[] }[] = [
+const navItems = [
   {
     name: "Home",
-    list: [],
+    link: "/",
   },
   {
-    name: "Product",
-    list: [
-      {
-        name: "Home",
-        link: "/",
-      },
-      {
-        name: "Advisiable",
-        link: "/advisiable",
-      },
-      {
-        name: "Promotions",
-        link: "/",
-      },
-    ],
+    name: "Advisiable",
+    link: "/advisiable",
   },
   {
-    name: "Company",
-    list: [
-      {
-        name: "Contact",
-        link: "/contact",
-      },
-      {
-        name: "Blog",
-        link: "/blogs",
-      },
-      {
-        name: "FAQ",
-        link: "/faq",
-      },
-    ],
+    name: "Contact",
+    link: "/contact",
   },
   {
-    name: "Legal",
-    list: [
-      {
-        name: "Privacy",
-        link: "/privacy-policy",
-      },
-      {
-        name: "Terms",
-        link: "/terms-and-conditions",
-      },
-    ],
+    name: "Blog",
+    link: "/blogs",
   },
   {
-    name: "faq",
-    list: [],
+    name: "FAQ",
+    link: "/faq",
   },
   {
-    name: "contact",
-    list: [],
+    name: "Privacy",
+    link: "/privacy-policy",
+  },
+  {
+    name: "Terms",
+    link: "/terms-and-conditions",
   },
 ];
 
@@ -71,13 +40,14 @@ export default function NavMenu({
 }: {
   handleNavMenu: () => void;
 }) {
+  const navigation = useNavigate();
   // State to track the opened list item
-  const [openItem, setOpenItem] = useState<string | null>(null);
+  // const [openItem, setOpenItem] = useState<string | null>(null);
 
   // Toggle function to handle open/close of the list
-  const handleToggle = (itemName: string) => {
-    setOpenItem(openItem === itemName ? null : itemName);
-  };
+  // const handleToggle = (itemName: string) => {
+  //   setOpenItem(openItem === itemName ? null : itemName);
+  // };
 
   return (
     <div className="absolute top-0 left-0 overflow-auto w-full md:w-1/4 h-screen bg-white dark:bg-[#3d3c3c] dark:text-white">
@@ -104,10 +74,13 @@ export default function NavMenu({
             >
               <div
                 className="flex items-center justify-between cursor-pointer"
-                onClick={() => handleToggle(item.name)}
+                onClick={() => {
+                  handleNavMenu();
+                  navigation(item.link);
+                }}
               >
                 <div>{item.name}</div>
-                {item.list.length > 0 && (
+                {/* {item.list.length > 0 && (
                   <div className="cursor-pointer">
                     {openItem === item.name ? (
                       <FaChevronUp />
@@ -115,11 +88,11 @@ export default function NavMenu({
                       <FaChevronDown />
                     )}
                   </div>
-                )}
+                )} */}
               </div>
 
               {/* Conditional rendering of the sublist */}
-              {openItem === item.name && item.list.length > 0 && (
+              {/* {openItem === item.name && item.list.length > 0 && (
                 <div>
                   {item.list.map((list, index) => (
                     <Link
@@ -138,7 +111,7 @@ export default function NavMenu({
                     </Link>
                   ))}
                 </div>
-              )}
+              )} */}
             </div>
           ))}
         </div>
