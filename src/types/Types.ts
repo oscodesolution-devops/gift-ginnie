@@ -16,3 +16,9 @@ export type TPopularCategories = {
   image: string;
   category_description: string;
 };
+
+export type TPopularProductItem = {
+  id: number;
+  image: string;
+  product: number;
+};
