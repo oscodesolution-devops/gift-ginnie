@@ -20,11 +20,14 @@ interface AddToCartType {
   initialCartCount: number;
   cartItems: CartItem[];
   addToCart: (productId: number, quantity: number) => void;
+  updateToCart: (productId: number, quantity: number) => void; // Add updateToCart here
   removeFromCart: (productId: number) => void;
   cartLoading: boolean;
   addToCartState: MutationState;
+  updateToCartState: MutationState;
   removeFromCartState: MutationState;
   resetAddToCartState: () => void;
+  resetUpdateToCartState: () => void;
   resetRemoveFromCartState: () => void;
   initialCartLoading: boolean;
 }
@@ -41,11 +44,14 @@ const AddToCartContext = createContext<AddToCartType>({
   initialCartCount: 0,
   cartItems: [],
   addToCart: () => {},
+  updateToCart: () => {}, // Add updateToCart here
   removeFromCart: () => {},
   cartLoading: false,
   addToCartState: initialMutationState,
   removeFromCartState: initialMutationState,
+  updateToCartState: initialMutationState,
   resetAddToCartState: () => {},
+  resetUpdateToCartState: () => {},
   resetRemoveFromCartState: () => {},
   initialCartLoading: false,
 });
@@ -57,13 +63,20 @@ export const AddToCart: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const { accessToken } = useAuth();
   const queryClient = useQueryClient();
-  const [addToCartState, setAddToCartState] = useState<MutationState>(initialMutationState);
-  const [removeFromCartState, setRemoveFromCartState] = useState<MutationState>(initialMutationState);
+  const [addToCartState, setAddToCartState] =
+    useState<MutationState>(initialMutationState);
+  const [updateToCartState, setUpdateToCartState] =
+    useState<MutationState>(initialMutationState);
+  const [removeFromCartState, setRemoveFromCartState] =
+    useState<MutationState>(initialMutationState);
   const [initialCartCount, setInitialCartCount] = useState<number>(0);
 
   // Reset functions for mutation states
   const resetAddToCartState = () => setAddToCartState(initialMutationState);
-  const resetRemoveFromCartState = () => setRemoveFromCartState(initialMutationState);
+  const resetUpdateToCartState = () =>
+    setUpdateToCartState(initialMutationState);
+  const resetRemoveFromCartState = () =>
+    setRemoveFromCartState(initialMutationState);
 
   // Initial cart count query
   const { data: initialCartData, isLoading: initialCartLoading } = useQuery({
@@ -154,6 +167,58 @@ export const AddToCart: React.FC<{ children: React.ReactNode }> = ({
     },
   });
 
+  // Update to cart mutation
+  // Update to cart mutation
+  const updateToCartMutation = useMutation({
+    mutationFn: async ({
+      productId,
+      quantity,
+    }: {
+      productId: number;
+      quantity: number;
+    }) => {
+      const response = await axios.patch(
+        `${API_BASE_URL}/cart/item/${productId}/`,
+        { quantity },
+        {
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log(response.data, "-------------------");
+      return response.data;
+    },
+    onMutate: () => {
+      setUpdateToCartState({
+        isLoading: true,
+        isSuccess: false,
+        isError: false,
+        error: null,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+      setUpdateToCartState({
+        isLoading: false,
+        isSuccess: true,
+        isError: false,
+        error: null,
+      });
+      setTimeout(resetUpdateToCartState, 3000); // Reset the update state instead of addToCartState
+    },
+    onError: (error: Error) => {
+      setUpdateToCartState({
+        isLoading: false,
+        isSuccess: false,
+        isError: true,
+        error,
+      });
+    },
+  });
+
   // Remove from cart mutation
   const removeFromCartMutation = useMutation({
     mutationFn: async (productId: number) => {
@@ -202,12 +267,16 @@ export const AddToCart: React.FC<{ children: React.ReactNode }> = ({
     cartItems: cartData?.data?.items || [],
     addToCart: (productId: number, quantity: number) =>
       addToCartMutation.mutate({ productId, quantity }),
+    updateToCart: (productId: number, quantity: number) =>
+      updateToCartMutation.mutate({ productId, quantity }),
     removeFromCart: (productId: number) =>
       removeFromCartMutation.mutate(productId),
     cartLoading,
     addToCartState,
+    updateToCartState,
     removeFromCartState,
     resetAddToCartState,
+    resetUpdateToCartState,
     resetRemoveFromCartState,
     initialCartLoading,
   };
