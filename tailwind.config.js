@@ -9,6 +9,9 @@ export default {
         primaryDark: "var(--dark-p-color)",
         secondary: "var(--secondary-color)",
       },
+      animation: {
+        "spin-fast": "spin 0.5s linear infinite",
+      },
     },
   },
   plugins: [],
