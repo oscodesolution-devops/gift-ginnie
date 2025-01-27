@@ -6,6 +6,7 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProduct } from "../../api/api";
 import { useAuth } from "../../context/Auth";
+import ProductSkeleton from "./ProductLoading";
 
 // const cardsList = [
 //   {
@@ -97,20 +98,18 @@ export default function Advisiable() {
 
   useEffect(() => {
     if (accessToken) {
-      console.log(accessToken);
       setToken(accessToken);
     }
   }, [accessToken]);
 
   if (isLoading) {
-    return <div>loading</div>;
+    return <ProductSkeleton/>;
   }
 
   if (error) {
     return <div>Error: {error.message}</div>;
   }
 
-  console.log(allProducts, "product");
 
   return (
     <div className="w-full min-h-screen flex justify-center items-center flex-col">

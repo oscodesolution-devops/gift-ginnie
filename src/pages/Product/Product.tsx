@@ -9,6 +9,7 @@ import { getProduct } from "../../api/api";
 import { useAuth } from "../../context/Auth";
 import { TProduct } from "../../types/Types";
 import { useParams } from "react-router-dom";
+import ProductSkeleton from "./ProductSkeleton";
 
 const productDescription: { title: string; content: string }[] = [
   {
@@ -48,8 +49,6 @@ export default function Product() {
     enabled: !!accessToken && !!productId, // Ensure both token and productId are available
   });
 
-  console.log(productId, "product");
-
   useEffect(() => {
     if (accessToken) {
       setToken(accessToken);
@@ -57,14 +56,12 @@ export default function Product() {
   }, [accessToken]);
 
   if (isLoading) {
-    return <div>loading</div>;
+    return <ProductSkeleton />;
   }
 
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
-  console.log(product, "product");
 
   return <ProductInfo product={product.data as TProduct} />;
 }

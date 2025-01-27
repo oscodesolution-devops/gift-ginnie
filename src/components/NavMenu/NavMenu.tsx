@@ -1,8 +1,6 @@
 import { IoMdClose } from "react-icons/io";
-import { FaChevronDown } from "react-icons/fa";
-import { FaChevronUp } from "react-icons/fa";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Import Link from React Router DOM
+
+import { useNavigate } from "react-router-dom"; // Import Link from React Router DOM
 
 const navItems = [
   {
