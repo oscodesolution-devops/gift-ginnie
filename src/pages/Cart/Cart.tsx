@@ -6,6 +6,7 @@ import { useCart } from "../../context/AddToCart";
 import toast from "react-hot-toast";
 import CartSkeleton from "./CartSkeleton";
 import { Link } from "react-router-dom";
+import { MdDelete } from "react-icons/md";
 
 type TCartItem = {
   id: number;
@@ -39,24 +40,31 @@ type TCartItem = {
   price: string;
 };
 
-type TCartResponse = {
-  id: number;
-  user: number;
-  items: TCartItem[];
-  coupon: null;
-  total_items: number;
-  original_price: number;
-  discounted_price: number;
-  discount_percentage: number;
+export type TCartResponse = {
+  data: {
+    id: number;
+    user: number;
+    items: TCartItem[];
+    coupon: null;
+    total_items: number;
+    original_price: number;
+    discounted_price: number;
+    discount_percentage: number;
+  };
 };
 
 export default function Cart() {
   const { accessToken } = useAuth();
-  const { updateToCart, updateToCartState, resetUpdateToCartState } = useCart();
+  const {
+    updateToCart,
+    updateToCartState,
+    resetUpdateToCartState,
+    removeFromCart,
+    removeFromCartState,
+    resetRemoveFromCartState,
+  } = useCart();
 
-  const [loadingItems, setLoadingItems] = useState<{ [key: number]: boolean }>(
-    {}
-  );
+  const [loadingItems, setLoadingItems] = useState<number>(-1);
 
   const [token, setToken] = useState<string | null>(null);
   const {
@@ -79,7 +87,19 @@ export default function Cart() {
     if (updateToCartState.isError) {
       toast.error("Failed to add product to cart. Please try again.");
     }
+    setLoadingItems(-1); // Reset loading state
   }, [updateToCartState, resetUpdateToCartState, refetchCartItems]);
+  useEffect(() => {
+    if (removeFromCartState.isSuccess) {
+      toast.success("Item removed from cart successfully.");
+      resetRemoveFromCartState();
+      refetchCartItems();
+    }
+
+    if (removeFromCartState.isError) {
+      toast.error("Failed to remove product from cart. Please try again.");
+    }
+  }, [removeFromCartState, resetRemoveFromCartState, refetchCartItems]);
 
   useEffect(() => {
     if (accessToken) {
@@ -88,48 +108,54 @@ export default function Cart() {
   }, [accessToken]);
 
   if (isLoading) {
-    return <CartSkeleton />;
+    return <CartSkeleton cartItems={cartItems} />;
   }
 
   if (error) {
     return <div>Error: {error.message}</div>;
   }
 
-  const handleUpdateCart = (productId: number, quantity: number) => {
+  const handleUpdateCart = (
+    productId: number,
+    quantity: number,
+    itemId: number
+  ) => {
     if (quantity > 0) {
-      setLoadingItems((prev) => ({ ...prev, [productId]: true })); // Set loading state for the current item
+      setLoadingItems(itemId); // Set loading state for the current item by ID
       updateToCart(productId, quantity);
     } else {
       alert("Please select a valid quantity.");
     }
   };
 
-  console.log(cartItems);
+  const handleDeleteCart = (productId: number) => {
+    removeFromCart(productId);
+  };
 
   return (
     <div className="w-full min-h-screen flex justify-center items-center flex-col py-8 px-4 dark:text-white">
       {cartItems?.data?.items.length === 0 ? (
         <div className="w-full flex flex-col items-center gap-4">
-          <h1 className="text-2xl font-bold">Your cart is empty</h1>
-          <Link to="/products">
-            <button className="bg-black uppercase text-white px-4 py-2 rounded-lg dark:text-black dark:bg-primary">
-              Products
-            </button>
+          <h1 className="text-4xl uppercase font-bold mb-6">
+            Your Cart is empty
+          </h1>
+          <Link
+            to="/products"
+            className="text-lg dark:bg-primary  font-medium bg-black uppercase py-3 px-5 text-primary dark:text-primaryDark"
+          >
+            Continue Shopping
           </Link>
         </div>
       ) : (
-        <div>
-          <h1 className="text-4xl flex justify-center font-bold mb-8">
-            Your Cart
-          </h1>
-
+        <>
+          <h1 className="text-4xl font-bold mb-6 mt-4">Your Cart</h1>
           {cartItems?.data?.items.map((item: TCartItem) => (
             <div
               key={item.id}
               className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-[35%_65%] gap-10 mb-10"
             >
               {/* Image Section (35%) */}
-              <div className="w-full flex items-center justify-center rounded-lg p-4 shadow-md">
+              <div className="w-full dark:border-white dark:border-2 flex items-center justify-center rounded-lg p-4 shadow-md">
                 <img
                   className="w-full h-auto max-h-72 object-cover rounded-md"
                   src={item.product.category.image}
@@ -137,8 +163,15 @@ export default function Cart() {
                 />
               </div>
               {/* Details Section (65%) */}
-              <div className="w-full flex flex-col justify-between rounded-lg p-6 shadow-md">
-                <div className="text-2xl font-bold">{item.product.name}</div>
+              <div className="w-full dark:border-white dark:border-2 flex flex-col justify-between gap-4 rounded-lg p-6 shadow-md">
+                <div className="flex justify-between items-center">
+                  <div className="text-2xl font-bold">{item.product.name}</div>
+                  <div>
+                    <button onClick={() => handleDeleteCart(item.id)}>
+                      <MdDelete className="text-3xl cursor-pointer text-red-500" />
+                    </button>
+                  </div>
+                </div>
                 <div className="text-sm leading-6">
                   {item.product.description.slice(0, 100)}...
                 </div>
@@ -157,8 +190,7 @@ export default function Cart() {
                   Total Price: {item.price}
                 </div>
                 <div className="flex items-center gap-4">
-                  {updateToCartState.isLoading &&
-                  loadingItems[item.product.id] ? (
+                  {updateToCartState.isLoading && loadingItems === item.id ? ( // Match loadingItems with item.id
                     <div>
                       <div role="status">
                         <svg
@@ -185,7 +217,7 @@ export default function Cart() {
                       <button
                         className="text-xl rounded-full bg-primaryDark dark:bg-primary text-white dark:text-black w-8 h-8 flex items-center justify-center"
                         onClick={() =>
-                          handleUpdateCart(item.id, item.quantity - 1)
+                          handleUpdateCart(item.id, item.quantity - 1, item.id)
                         } // Decrease quantity
                         aria-label="Decrease quantity"
                         disabled={item.quantity === 1}
@@ -198,7 +230,7 @@ export default function Cart() {
                         aria-label="Increase quantity"
                         disabled={!item.product.in_stock}
                         onClick={() =>
-                          handleUpdateCart(item.id, item.quantity + 1)
+                          handleUpdateCart(item.id, item.quantity + 1, item.id)
                         } // Increase quantity
                       >
                         +
@@ -217,7 +249,7 @@ export default function Cart() {
               Discounted Percentage : {cartItems?.data?.discount_percentage}%
             </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
