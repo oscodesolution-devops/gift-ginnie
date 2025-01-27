@@ -99,3 +99,12 @@ export const getAllProduct = async (token: string) => {
   });
   return response.data;
 };
+export const getCartProducts = async (token: string) => {
+  const response = await axios.get(`${BASE_URL}/api/v1/cart/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  return response.data;
+};
