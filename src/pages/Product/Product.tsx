@@ -10,6 +10,8 @@ import { useAuth } from "../../context/Auth";
 import { TProduct } from "../../types/Types";
 import { useParams } from "react-router-dom";
 import ProductSkeleton from "./ProductSkeleton";
+import { useCart } from "../../context/AddToCart";
+import toast from "react-hot-toast";
 
 const productDescription: { title: string; content: string }[] = [
   {
@@ -67,7 +69,11 @@ export default function Product() {
 }
 
 function ProductInfo({ product }: { product: TProduct }) {
+  const { addToCart, addToCartState, resetAddToCartState } = useCart();
+
   const [openDescription, setOpenDescription] = useState(-1);
+  // state to keep track of quantity
+  const [quantity, setQuantity] = useState(1);
   const contentRef = useRef<HTMLDivElement>(null);
   const [activeImage, setActiveImage] = useState(product.category.image);
 
@@ -96,6 +102,25 @@ function ProductInfo({ product }: { product: TProduct }) {
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
   }, []);
+
+  const handleAddToCart = () => {
+    if (quantity > 0) {
+      addToCart(product.id, quantity);
+    } else {
+      alert("Please select a valid quantity.");
+    }
+  };
+
+  useEffect(() => {
+    if (addToCartState.isSuccess) {
+      toast.success("Product added to cart successfully!");
+      resetAddToCartState();
+    }
+
+    if (addToCartState.isError) {
+      toast.error("Failed to add product to cart. Please try again.");
+    }
+  }, [addToCartState, resetAddToCartState]);
 
   return (
     <div className="w-full min-h-screen sm:mt-20">
@@ -193,9 +218,32 @@ function ProductInfo({ product }: { product: TProduct }) {
           </div>
 
           <div className="mb-6">
-            <button className="bg-black dark:bg-primary text-white font-bold dark:text-black uppercase py-3 w-full">
-              purchase now
-            </button>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={handleAddToCart}
+                className="bg-black dark:bg-primary text-white font-bold dark:text-black uppercase py-3 px-6"
+                disabled={addToCartState.isLoading}
+              >
+                {addToCartState.isLoading ? "ADDING..." : "ADD TO CART"}
+              </button>
+              <div className="flex items-center gap-4">
+                <button
+                  className="text-xl rounded-full bg-primaryDark dark:bg-primary text-white dark:text-black w-8 h-8 flex items-center justify-center"
+                  onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                  aria-label="Decrease quantity"
+                >
+                  -
+                </button>
+                <p className="text-lg font-medium">{quantity}</p>
+                <button
+                  className="text-xl rounded-full bg-primaryDark dark:bg-primary text-white dark:text-black w-8 h-8 flex items-center justify-center"
+                  onClick={() => setQuantity((prev) => prev + 1)}
+                  aria-label="Increase quantity"
+                >
+                  +
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
