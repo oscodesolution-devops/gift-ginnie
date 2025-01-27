@@ -6,6 +6,7 @@ import { useVideoContext } from "../../context/MainVideo";
 import { name } from "../../constants";
 import { FaShoppingCart } from "react-icons/fa";
 import { useCart } from "../../context/AddToCart";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const { cartItemsCount, cartLoading, initialCartCount } = useCart();
@@ -63,7 +64,10 @@ export default function Navbar() {
         </div>
         <div className="flex items-center gap-4 md:gap-6">
           <div className="relative cursor-pointer">
-            <FaShoppingCart className="text-xl" />
+            <Link to="/cart">
+              {" "}
+              <FaShoppingCart className="text-xl" />
+            </Link>
             {cartLoading ? (
               <div className="text-xs absolute -top-2 -right-2 bg-gray-400 text-white rounded-full w-4 h-4 flex justify-center items-center animate-pulse">
                 ...
