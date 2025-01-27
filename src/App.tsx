@@ -16,6 +16,7 @@ import LoginScreen from "./pages/login/Login";
 import OTPInput from "./pages/OtpVerification/OtpVerification";
 import { AuthProvider } from "./context/Auth";
 import { AddToCart } from "./context/AddToCart";
+import CartPage from "./pages/Cart/Cart";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/faq" element={<FAQ />} />
+              <Route path="/cart" element={<CartPage />} />
               <Route
                 path="/terms-and-conditions"
                 element={<TermsAndConditions />}
