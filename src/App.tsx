@@ -15,10 +15,12 @@ import Product from "./pages/Product/Product";
 import LoginScreen from "./pages/login/Login";
 import OTPInput from "./pages/OtpVerification/OtpVerification";
 import { AuthProvider } from "./context/Auth";
+import { AddToCart } from "./context/AddToCart";
 
 function App() {
   return (
     <AuthProvider>
+      <AddToCart>
       <Router>
         <ScrollToTop />
         <VideoProvider>
@@ -43,6 +45,7 @@ function App() {
           </MainLayout>
         </VideoProvider>
       </Router>
+      </AddToCart>
     </AuthProvider>
   );
 }
