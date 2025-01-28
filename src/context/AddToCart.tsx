@@ -188,7 +188,6 @@ export const AddToCart: React.FC<{ children: React.ReactNode }> = ({
           },
         }
       );
-      console.log(response.data, "-------------------");
       return response.data;
     },
     onMutate: () => {

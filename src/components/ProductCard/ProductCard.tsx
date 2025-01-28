@@ -1,12 +1,37 @@
-import { TProduct } from "../../types/Types";
-import { Link } from "react-router-dom";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { addLikeItem } from "../../api/api";
+import { useAuth } from "../../context/Auth";
+import { TProduct } from "../../types/Types";
 
 export default function ProductCard({ card }: { card: TProduct }) {
+  const { accessToken } = useAuth();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: () => {
+      return addLikeItem(accessToken as string, card.id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["allProducts"] });
+      toast.success("Item added to liked list");
+    },
+    onError: () => {
+      toast.error("Failed to add item to liked list");
+    },
+  });
+
+  const handleLikeClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Stop event propagation
+    mutation.mutate();
+  };
+
   return (
-    <Link to={`/product/${card.id}`}>
-      <div className="flex flex-col gap-2 cursor-pointer" key={card.id}>
-        <div className="relative">
+    <div className="flex flex-col gap-2 cursor-pointer" key={card.id}>
+      <div className="relative">
+        <Link to={`/product/${card.id}`}>
           <img
             src={card.category.image}
             alt={card.name}
@@ -15,15 +40,18 @@ export default function ProductCard({ card }: { card: TProduct }) {
           <div className="uppercase bg-[#E4E3E0] dark:bg-black/70 dark:text-white/70 rounded-sm text-sm absolute top-5 right-4 px-2 py-1">
             {card.in_stock ? "In Stock" : "Out of Stock"}
           </div>
-          <div
-            className={`absolute top-5 left-2 text-xl bg-[#E4E3E0] dark:bg-black/70 dark:text-white/70 rounded-md px-2 py-2 hover:bg-[#E4E3E0]/70 ${
-              card.is_liked ? "text-red-500" : "dark:text-white/70"
-            }`}
-
-          >
-            <FaHeart />
-          </div>
+        </Link>
+        {/* Like button outside of Link */}
+        <div
+          onClick={handleLikeClick}
+          className={`absolute top-5 left-2 text-xl bg-[#E4E3E0] dark:bg-black/70 dark:text-white/70 rounded-md px-2 py-2 hover:bg-[#E4E3E0]/70 cursor-pointer ${
+            card.is_liked ? "text-red-500" : "dark:text-white/70"
+          }`}
+        >
+          <FaHeart />
         </div>
+      </div>
+      <Link to={`/product/${card.id}`}>
         <div className="flex justify-between items-center">
           <div className="font-bold">{card.name}</div>
           <div className="bg-white dark:bg-[#1A1A1A] px-1 rounded-sm">
@@ -43,7 +71,7 @@ export default function ProductCard({ card }: { card: TProduct }) {
             {card.original_price}
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
