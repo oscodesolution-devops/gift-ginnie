@@ -23,8 +23,7 @@ export default function ProductCard({ card }: { card: TProduct }) {
     },
   });
 
-  console.log(mutation.data);
-  console.log(card);
+ 
 
   const handleLikeClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Stop event propagation

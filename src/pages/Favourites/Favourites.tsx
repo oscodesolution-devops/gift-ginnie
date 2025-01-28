@@ -53,7 +53,6 @@ export default function Favourites() {
   }
 
   // Add this to see the exact structure
-  console.log("Liked Items Structure:", likedItems);
 
   // Check if there are no items
   if (!likedItems || !likedItems.data || likedItems.data.length === 0) {

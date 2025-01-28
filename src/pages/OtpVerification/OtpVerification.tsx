@@ -32,10 +32,7 @@ const OTPInput = () => {
 
       //   set data in local storage
       login(data.data.access, data.data.refresh);
-      // localStorage.setItem("authToken", data.data.access);
-      // localStorage.setItem("refreshToken", data.data.refresh);
-      // localStorage.setItem("verificationId", verificationId);
-      navigate("/");
+      navigate("/update-profile");
     },
     onError: (err: any) => {
       setError(err.response?.data?.message || "Verification failed");

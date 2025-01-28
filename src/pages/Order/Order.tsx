@@ -79,7 +79,6 @@ export default function Order() {
       currency: data.currency,
       order_id: data.razorpay_order_id,
       handler: async (response: PaymentResponse) => {
-        console.log("Payment Response:", response);
         verifyMutation.mutate(response);
       },
 
@@ -108,7 +107,6 @@ export default function Order() {
       return await checkout(accessToken, address_id);
     },
     onSuccess: (data) => {
-      console.log("Order created successfully:", data);
       handlePayment(data);
     },
     onError: (error: Error) => {

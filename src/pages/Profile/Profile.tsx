@@ -23,7 +23,7 @@ type TAddress = {
   address_type: string;
 };
 
-type TUserProfile = {
+export type TUserProfile = {
   id: number;
   email: string;
   full_name: string;
@@ -65,7 +65,6 @@ const UserProfile = () => {
       day: "numeric",
     });
   };
-  console.log(user);
 
   return (
     <div className="container mx-auto p-4 mt-20 md:px-40">
