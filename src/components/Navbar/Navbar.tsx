@@ -107,7 +107,7 @@ export default function Navbar() {
                   <>
                     <button
                       onClick={() => {
-                        navigate("/");
+                        navigate("/profile");
                         setIsUserIconOpen(false);
                       }}
                     >
