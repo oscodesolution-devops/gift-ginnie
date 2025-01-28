@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { getLikeItems } from "../../api/api";
 import { useAuth } from "../../context/Auth";
+import FavouritesSkeleton from "./FavouritesSkeleton";
 type TFavourites = {
   id: number;
   product: {
@@ -44,7 +45,7 @@ export default function Favourites() {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <FavouritesSkeleton />;
   }
 
   if (error) {
