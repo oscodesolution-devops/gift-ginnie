@@ -108,10 +108,19 @@ export const getCartProducts = async (token: string) => {
   });
   return response.data;
 };
+export const getLikeItems = async (token: string) => {
+  const response = await axios.get(`${BASE_URL}/api/v1/products/favourite/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  return response.data;
+};
 export const addLikeItem = async (token: string, id: number) => {
   const response = await axios.post(
     `${BASE_URL}/api/v1/products/favourite/`,
-    { id }, 
+    { id },
     {
       headers: {
         Authorization: `Bearer ${token}`,
