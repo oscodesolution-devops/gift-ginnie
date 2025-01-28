@@ -20,6 +20,7 @@ import CartPage from "./pages/Cart/Cart";
 import Favourites from "./pages/Favourites/Favourites";
 import AddressForm from "./pages/Address/Address";
 import Order from "./pages/Order/Order";
+import { ProtectedRoute } from "./context/ProtectedRoutes";
 
 function App() {
   return (
@@ -37,10 +38,38 @@ function App() {
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/faq" element={<FAQ />} />
-                <Route path="/cart" element={<CartPage />} />
-                <Route path="/favourites" element={<Favourites />} />
-                <Route path="/address" element={<AddressForm />} />
-                <Route path="/order" element={<Order />} />
+                <Route
+                  path="/cart"
+                  element={
+                    <ProtectedRoute>
+                      <CartPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/favourites"
+                  element={
+                    <ProtectedRoute>
+                      <Favourites />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/address"
+                  element={
+                    <ProtectedRoute>
+                      <AddressForm />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/order"
+                  element={
+                    <ProtectedRoute>
+                      <Order />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route
                   path="/terms-and-conditions"
                   element={<TermsAndConditions />}
