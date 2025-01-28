@@ -22,6 +22,7 @@ import AddressForm from "./pages/Address/Address";
 import Order from "./pages/Order/Order";
 import { ProtectedRoute } from "./context/ProtectedRoutes";
 import UserProfile from "./pages/Profile/Profile";
+import ProfileForm from "./pages/ProfileUpdate/ProfileUpdate";
 
 function App() {
   return (
@@ -52,6 +53,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <UserProfile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/update-profile"
+                  element={
+                    <ProtectedRoute>
+                      <ProfileForm />
                     </ProtectedRoute>
                   }
                 />
