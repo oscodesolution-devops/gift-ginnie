@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import { getUserProfile } from "../../api/api";
 import { useAuth } from "../../context/Auth";
+import ProfileSkeleton from "./ProfileSkeleton";
 
 type TAddress = {
   id: number;
@@ -50,7 +51,7 @@ const UserProfile = () => {
   const user = userData?.data as TUserProfile;
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <ProfileSkeleton />;
   }
   if (isError) {
     return <div>Error: {error.message}</div>;
