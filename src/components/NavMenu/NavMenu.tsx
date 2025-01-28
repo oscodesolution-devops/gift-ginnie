@@ -12,6 +12,10 @@ const navItems = [
     link: "/products",
   },
   {
+    name: "Favorites",
+    link: "/favorites",
+  },
+  {
     name: "Contact",
     link: "/contact",
   },

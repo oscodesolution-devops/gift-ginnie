@@ -40,6 +40,10 @@ const footerTabs: { title: string; tabs: { name: string; link: string }[] }[] =
           name: "Products",
           link: "/products",
         },
+        {
+          name:"Favorites",
+          link:"/favorites"
+        }
       ],
     },
     {
