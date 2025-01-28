@@ -266,7 +266,7 @@ export default function Cart() {
             </div>
             <div className="flex justify-center items-center">
               <Link to="/address">
-                <button className="bg-primaryDark dark:primary text-white py-2 px-5 dark:text-black">
+                <button className="bg-primaryDark dark:bg-primary uppercase font-bold text-white py-2 px-5 dark:text-black">
                   Proceed
                 </button>
               </Link>
