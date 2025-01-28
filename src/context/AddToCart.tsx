@@ -56,7 +56,7 @@ const AddToCartContext = createContext<AddToCartType>({
   initialCartLoading: false,
 });
 
-const API_BASE_URL = "http://18.218.49.219:8000/api/v1";
+const API_BASE_URL = "http://18.218.49.219:8000";
 
 export const AddToCart: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -83,7 +83,7 @@ export const AddToCart: React.FC<{ children: React.ReactNode }> = ({
     queryKey: ["initialCart", accessToken],
     queryFn: async () => {
       if (!accessToken) return null;
-      const response = await axios.get(`${API_BASE_URL}/cart/`, {
+      const response = await axios.get(`${API_BASE_URL}/api/v1/cart/`, {
         headers: {
           accept: "application/json",
           Authorization: `Bearer ${accessToken}`,
@@ -99,7 +99,7 @@ export const AddToCart: React.FC<{ children: React.ReactNode }> = ({
     queryKey: ["cart", accessToken],
     queryFn: async () => {
       if (!accessToken) return null;
-      const response = await axios.get(`${API_BASE_URL}/cart/`, {
+      const response = await axios.get(`${API_BASE_URL}/api/v1/cart/`, {
         headers: {
           accept: "application/json",
           Authorization: `Bearer ${accessToken}`,
@@ -127,7 +127,7 @@ export const AddToCart: React.FC<{ children: React.ReactNode }> = ({
       quantity: number;
     }) => {
       const response = await axios.post(
-        `${API_BASE_URL}/cart/item/`,
+        `${API_BASE_URL}/api/v1/cart/item/`,
         { product_id: productId, quantity },
         {
           headers: {
@@ -178,7 +178,7 @@ export const AddToCart: React.FC<{ children: React.ReactNode }> = ({
       quantity: number;
     }) => {
       const response = await axios.patch(
-        `${API_BASE_URL}/cart/item/${productId}/`,
+        `${API_BASE_URL}/api/v1/cart/item/${productId}/`,
         { quantity },
         {
           headers: {
@@ -222,7 +222,7 @@ export const AddToCart: React.FC<{ children: React.ReactNode }> = ({
   const removeFromCartMutation = useMutation({
     mutationFn: async (productId: number) => {
       const response = await axios.delete(
-        `${API_BASE_URL}/cart/item/${productId}/`,
+        `${API_BASE_URL}/api/v1/cart/item/${productId}/`,
         {
           headers: {
             accept: "application/json",
