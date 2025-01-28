@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "../../context/Auth";
-import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { addAddress } from "../../api/api";
 
-interface AddressForm {
+export interface AddressForm {
   address_line_1: string;
   city: string;
   state: string;
@@ -22,28 +22,6 @@ interface FormErrors {
   pincode?: string;
   address_type?: string;
 }
-
-const addAddress = async (data: AddressForm, token: string) => {
-  try {
-    const response = await axios.post(
-      "http://18.218.49.219:8000/api/v1/users/profile/address/",
-      data,
-      {
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    if (error instanceof AxiosError && error.response?.data) {
-      throw error.response.data;
-    }
-    throw error;
-  }
-};
 
 export default function AddressForm() {
   const navigate = useNavigate();
@@ -145,10 +123,10 @@ export default function AddressForm() {
             <div className="space-y-6 rounded-md shadow-sm">
               <div>
                 <label
-                  htmlFor="address_line_1"
+                  htmlFor="email"
                   className="block text-sm font-medium "
                 >
-                  Address Line
+                  Email
                 </label>
                 <input
                   id="address_line_1"
