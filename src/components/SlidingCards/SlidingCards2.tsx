@@ -5,8 +5,10 @@ import { TPopularProductItem } from "../../types/Types";
 
 export default function SlidingCards2({
   card,
+  navigationId,
 }: {
   card: TPopularProductItem[];
+  navigationId: number;
 }) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +47,7 @@ export default function SlidingCards2({
       >
         {card.map((card, index) => (
           <div key={index} className="snap-start shrink-0">
-            <HomePageCards card={card} />
+            <HomePageCards card={card} key={card.id} navigationId={navigationId} />
           </div>
         ))}
       </div>

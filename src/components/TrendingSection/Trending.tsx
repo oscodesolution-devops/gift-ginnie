@@ -30,7 +30,7 @@ export default function Trending() {
   });
 
   useEffect(() => {
-    if (accessToken) {
+  if (accessToken) {
       setToken(accessToken);
     }
   }, [token, accessToken]);
@@ -56,7 +56,7 @@ export default function Trending() {
               >
                 {product.name}
               </div>
-              <SlidingCards2 card={product.images} />
+              <SlidingCards2 card={product.images} key={product.id} navigationId={product.id} />
             </>
           ))}
         </div>

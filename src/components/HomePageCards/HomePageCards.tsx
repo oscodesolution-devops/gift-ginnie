@@ -1,18 +1,27 @@
+import { Link } from "react-router-dom";
 import { TPopularProductItem } from "../../types/Types";
 
-export default function HomePageCards({ card }: { card: TPopularProductItem }) {
+export default function HomePageCards({
+  card,
+  navigationId,
+}: {
+  card: TPopularProductItem;
+  navigationId: number;
+}) {
   return (
-    <div className="flex flex-col gap-2 cursor-pointer w-60" >
-      <div className="relative h-96 w-full">
-        <img
-          src={card.image}
-          alt={card.image}
-          className="w-full h-full object-cover"
-        />
-        {/* <div className="uppercase bg-[#E4E3E0] dark:bg-black/70 dark:text-white/70 rounded-sm text-sm absolute top-5 right-4 px-2 py-1">
+    <div className="flex flex-col gap-2 cursor-pointer w-60">
+      <Link to={`/product/${navigationId}`}>
+        <div className="relative h-96 w-full">
+          <img
+            src={card.image}
+            alt={card.image}
+            className="w-full h-full object-cover"
+          />
+          {/* <div className="uppercase bg-[#E4E3E0] dark:bg-black/70 dark:text-white/70 rounded-sm text-sm absolute top-5 right-4 px-2 py-1">
           {card.stock}
         </div> */}
-      </div>
+        </div>
+      </Link>
       {/* <div className="flex justify-between items-center">
         <div className="font-bold truncate dark:text-white pr-2">
           {card.title}

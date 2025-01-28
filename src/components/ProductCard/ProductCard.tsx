@@ -14,14 +14,17 @@ export default function ProductCard({ card }: { card: TProduct }) {
     mutationFn: () => {
       return addLikeItem(accessToken as string, card.id);
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["allProducts"] });
-      toast.success("Item added to liked list");
+      toast.success(data.message);
     },
     onError: () => {
       toast.error("Failed to add item to liked list");
     },
   });
+
+  console.log(mutation.data);
+  console.log(card);
 
   const handleLikeClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Stop event propagation
@@ -44,7 +47,7 @@ export default function ProductCard({ card }: { card: TProduct }) {
         {/* Like button outside of Link */}
         <div
           onClick={handleLikeClick}
-          className={`absolute top-5 left-2 text-xl bg-[#E4E3E0] dark:bg-black/70 dark:text-white/70 rounded-md px-2 py-2 hover:bg-[#E4E3E0]/70 cursor-pointer ${
+          className={`absolute top-5 left-2 text-xl bg-[#E4E3E0] dark:bg-black/70 rounded-md px-2 py-2 hover:bg-[#E4E3E0]/70 cursor-pointer ${
             card.is_liked ? "text-red-500" : "dark:text-white/70"
           }`}
         >
