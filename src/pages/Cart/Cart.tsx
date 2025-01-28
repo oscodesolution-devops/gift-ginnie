@@ -152,7 +152,7 @@ export default function Cart() {
           {cartItems?.data?.items.map((item: TCartItem) => (
             <div
               key={item.id}
-              className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-[35%_65%] gap-10 mb-10"
+              className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-[35%_65%] gap-5 mb-10"
             >
               {/* Image Section (35%) */}
               <div className="w-full dark:border-white dark:border-2 flex items-center justify-center rounded-lg p-4 shadow-md">
@@ -241,12 +241,35 @@ export default function Cart() {
               </div>
             </div>
           ))}
-          <div className="w-full max-w-5xl flex flex-col gap-4 mt-6 p-6 rounded-lg">
-            <div>Total Items : {cartItems?.data?.total_items}</div>
-            <div>Original Price : {cartItems?.data?.original_price}</div>
-            <div>Discounted Price : {cartItems?.data?.discounted_price}</div>
-            <div>
-              Discounted Percentage : {cartItems?.data?.discount_percentage}%
+          <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 p-6 gap-10 dark:bg-black  border-2 border-white rounded-lg mb-10 shadow-lg">
+            <div className="space-y-4">
+              <div className="text-lg font-semibold">
+                <span className="text-gray-400">
+                  Total Items: {cartItems?.data?.total_items}
+                </span>
+              </div>
+              <div className="text-lg font-semibold">
+                <span className="text-gray-400">
+                  Original Price: {cartItems?.data?.original_price}₹
+                </span>
+              </div>
+              <div className="text-lg font-semibold">
+                <span className="text-gray-400">
+                  Discounted Price: {cartItems?.data?.discounted_price}₹
+                </span>
+              </div>
+              <div className="text-lg font-semibold">
+                <span className="text-gray-400">
+                  Discount Percentage: {cartItems?.data?.discount_percentage}%
+                </span>
+              </div>
+            </div>
+            <div className="flex justify-center items-center">
+              <Link to="/address">
+                <button className="bg-primaryDark dark:primary text-white py-2 px-5 dark:text-black">
+                  Proceed
+                </button>
+              </Link>
             </div>
           </div>
         </>

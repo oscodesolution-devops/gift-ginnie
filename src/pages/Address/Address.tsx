@@ -304,8 +304,6 @@ export default function AddressForm() {
           </form>
         </div>
       </div>
-
-      <button>Payment</button>
     </>
   );
 }
