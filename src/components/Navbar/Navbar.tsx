@@ -6,13 +6,21 @@ import { useVideoContext } from "../../context/MainVideo";
 import { name } from "../../constants";
 import { FaShoppingCart } from "react-icons/fa";
 import { useCart } from "../../context/AddToCart";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FaRegCircleUser } from "react-icons/fa6";
+import { useAuth } from "../../context/Auth";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const { cartItemsCount, cartLoading, initialCartCount } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isInVideoSection } = useVideoContext();
   const [isCountAnimating, setIsCountAnimating] = useState(false);
+
+  // state for user icon
+  const [isUserIconOpen, setIsUserIconOpen] = useState(false);
+
+  const { checkAuth, logout } = useAuth();
 
   // Disable body scrolling when menu is open
   useEffect(() => {
@@ -86,6 +94,47 @@ export default function Navbar() {
 
           <div className="text-2xl cursor-pointer">
             <ThemeToggle />
+          </div>
+          <div className="text-2xl cursor-pointer relative">
+            <FaRegCircleUser
+              onClick={() => setIsUserIconOpen(!isUserIconOpen)}
+            />
+            {isUserIconOpen && (
+              <div className="absolute top-8 -right-2 bg-primary dark:border-2 dark:border-white dark:bg-primaryDark text-primaryBlack dark:text-primary shadow-lg  text-sm px-4 py-1 rounded flex flex-col gap-1">
+                {/* todo fix the profile sreen url */}
+
+                {checkAuth() ? (
+                  <>
+                    <button
+                      onClick={() => {
+                        navigate("/");
+                        setIsUserIconOpen(false);
+                      }}
+                    >
+                      Profile
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        logout();
+                        setIsUserIconOpen(false);
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => {
+                      navigate("/login");
+                      setIsUserIconOpen(false);
+                    }}
+                  >
+                    Login
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </nav>
