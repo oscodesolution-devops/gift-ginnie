@@ -3,10 +3,12 @@ import { useMutation } from "@tanstack/react-query";
 import { verifyOTP } from "../../api/api";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useAuth } from "../../context/Auth";
 
 const OTPInput = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const { authToken, verificationId, phoneNumber, countryCode } =
     location.state || {};
@@ -29,10 +31,10 @@ const OTPInput = () => {
       setError(null);
 
       //   set data in local storage
-      localStorage.setItem("authToken", data.data.access);
-      localStorage.setItem("refreshToken", data.data.refresh);
-      localStorage.setItem("verificationId", verificationId);
-
+      login(data.data.access, data.data.refresh);
+      // localStorage.setItem("authToken", data.data.access);
+      // localStorage.setItem("refreshToken", data.data.refresh);
+      // localStorage.setItem("verificationId", verificationId);
       navigate("/");
     },
     onError: (err: any) => {

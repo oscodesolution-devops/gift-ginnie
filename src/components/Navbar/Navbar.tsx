@@ -118,6 +118,7 @@ export default function Navbar() {
                       onClick={() => {
                         logout();
                         setIsUserIconOpen(false);
+                        navigate("/login");
                       }}
                     >
                       Logout
