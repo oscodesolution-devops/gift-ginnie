@@ -168,3 +168,13 @@ export const verifyPayment = async (
     );
   }
 };
+
+export const getUserProfile = async (token: string) => {
+  const response = await axios.get(`${BASE_URL}/api/v1/users/profile/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  return response.data;
+};
