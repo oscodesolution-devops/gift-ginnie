@@ -13,7 +13,7 @@ const navItems = [
   },
   {
     name: "Favorites",
-    link: "/favorites",
+    link: "/favourites",
   },
   {
     name: "Contact",
