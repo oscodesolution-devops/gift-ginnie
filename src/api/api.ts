@@ -1,4 +1,6 @@
 import axios from "axios";
+import { AddressForm } from "../pages/Address/Address";
+import { ProfileForm } from "../pages/ProfileUpdate/ProfileUpdate";
 
 const BASE_URL = "http://18.218.49.219:8000";
 
@@ -176,5 +178,35 @@ export const getUserProfile = async (token: string) => {
       "Content-Type": "application/json",
     },
   });
+  return response.data;
+};
+
+export const addAddress = async (data: AddressForm, token: string) => {
+  const response = await axios.post(
+    `${BASE_URL}/api/v1/users/profile/address/`,
+    data,
+    {
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const updateProfile = async (data: ProfileForm, token: string) => {
+  const response = await axios.patch(
+    `${BASE_URL}/api/v1/users/profile/update/`,
+    data,
+    {
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   return response.data;
 };
