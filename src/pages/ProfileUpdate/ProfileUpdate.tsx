@@ -1,8 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAuth } from "../../context/Auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { updateProfile } from "../../api/api";
+import { getUserProfile, updateProfile } from "../../api/api";
+import { useNavigate } from "react-router-dom";
+import { TUserProfile } from "../Profile/Profile";
 
 export interface ProfileForm {
   email: string;
@@ -24,6 +26,7 @@ interface FormErrors {
 
 export default function ProfileForm() {
   const { accessToken } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<ProfileForm>({
     email: "",
     full_name: "",
@@ -42,6 +45,7 @@ export default function ProfileForm() {
     },
     onSuccess: () => {
       toast.success("Profile updated successfully!");
+      navigate("/");
     },
     onError: (error: any) => {
       if (error.response?.data && typeof error.response.data === "object") {
@@ -60,6 +64,27 @@ export default function ProfileForm() {
       }
     },
   });
+
+  const { data: userData } = useQuery({
+    queryKey: ["userProfile"],
+    queryFn: () => getUserProfile(accessToken as string),
+    enabled: !!accessToken,
+  });
+  const user = userData?.data as TUserProfile;
+
+  useEffect(() => {
+    if (user?.id) {
+      setFormData({
+        email: user.email,
+        full_name: user.full_name,
+        phone_number: user.phone_number,
+        country_code: user.country_code,
+        is_active: user.is_active,
+        is_wholesale_customer: user.is_wholesale_customer,
+        gender: user.gender,
+      });
+    }
+  }, [user]);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -96,7 +121,7 @@ export default function ProfileForm() {
       <div className="w-full max-w-md space-y-8 dark:border-2 dark:border-primary p-6 rounded-xl shadow-lg">
         <div>
           <h2 className="text-center text-3xl font-bold tracking-tight">
-            Update Profile
+            {user?.id ? "Update Profile" : "Create Profile"}
           </h2>
         </div>
 
