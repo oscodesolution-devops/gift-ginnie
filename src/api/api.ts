@@ -130,3 +130,41 @@ export const addLikeItem = async (token: string, id: number) => {
   );
   return response.data;
 };
+export const checkout = async (token: string, address_id: number) => {
+  const response = await axios.post(
+    `${BASE_URL}/api/v1/orders/checkout/`,
+    { address_id },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.data;
+};
+
+export const verifyPayment = async (
+  accessToken: string,
+  paymentData: PaymentResponse
+) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/api/v1/orders/verifyPayment/`,
+      paymentData,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+          "X-CSRFTOKEN":
+            "fISM01fR0nL2H0oxpT5KM3HxVmOxw87axxbyAGNgoG6K15C5ZiSdYxlKNLNBKzx6",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : "Payment verification failed"
+    );
+  }
+};

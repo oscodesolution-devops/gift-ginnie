@@ -18,6 +18,8 @@ import { AuthProvider } from "./context/Auth";
 import { AddToCart } from "./context/AddToCart";
 import CartPage from "./pages/Cart/Cart";
 import Favourites from "./pages/Favourites/Favourites";
+import AddressForm from "./pages/Address/Address";
+import Order from "./pages/Order/Order";
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/favourites" element={<Favourites />} />
+                <Route path="/address" element={<AddressForm />} />
+                <Route path="/order" element={<Order />} />
                 <Route
                   path="/terms-and-conditions"
                   element={<TermsAndConditions />}
