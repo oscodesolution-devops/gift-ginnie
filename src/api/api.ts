@@ -210,3 +210,17 @@ export const updateProfile = async (data: ProfileForm, token: string) => {
   );
   return response.data;
 };
+export const deleteAddress = async (id: number, token: string) => {
+  const response = await axios.delete(
+    `${BASE_URL}/api/v1/users/profile/address/`,
+    {
+      data: { id },
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
