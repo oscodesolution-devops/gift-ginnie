@@ -21,6 +21,7 @@ import Favourites from "./pages/Favourites/Favourites";
 import AddressForm from "./pages/Address/Address";
 import Order from "./pages/Order/Order";
 import { ProtectedRoute } from "./context/ProtectedRoutes";
+import UserProfile from "./pages/Profile/Profile";
 
 function App() {
   return (
@@ -43,6 +44,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <CartPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <UserProfile />
                     </ProtectedRoute>
                   }
                 />
