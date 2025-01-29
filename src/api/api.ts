@@ -224,3 +224,24 @@ export const deleteAddress = async (id: number, token: string) => {
   );
   return response.data;
 };
+
+export const getOrders = async (token: string) => {
+  const response = await axios.get(`${BASE_URL}/api/v1/orders/checkout/`, {
+    headers: {
+      accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+export const getCoupons = async (token: string) => {
+  const response = await axios.get(`${BASE_URL}/api/v1/coupon/`, {
+    headers: {
+      accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
