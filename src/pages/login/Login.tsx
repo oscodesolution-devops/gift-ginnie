@@ -47,40 +47,41 @@ const LoginScreen: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-primaryDark">
-      <div className="w-full max-w-sm p-6 rounded-2xl shadow-xl bg-white dark:bg-black dark:border-white dark:border-2">
-        <div>
-          <h1 className="text-2xl font-bold text-center mb-4 dark:text-white">
-            Login
-          </h1>
-          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-          <div className="flex items-center gap-2 mb-4">
-            <select
-              value={countryCode}
-              onChange={(e) => setCountryCode(e.target.value)}
-              className="w-24 p-2 border border-gray-300 rounded-lg"
-            >
-              <option value="91">+91 (India)</option>
-              <option value="1">+1 (USA)</option>
-              <option value="44">+44 (UK)</option>
-              <option value="61">+61 (Australia)</option>
-            </select>
-            <input
-              type="tel"
-              placeholder="Phone Number"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              className="flex-1 p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <button
-            onClick={handleLogin}
-            className="w-full p-2 bg-primaryDark dark:bg-primary hover:bg-primaryLight text-white dark:text-primaryDark rounded-lg"
-            disabled={loginMutation.isPending}
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-primaryDark px-4">
+      <div className="w-full max-w-sm p-6 rounded-2xl shadow-2xl bg-white dark:bg-black border border-gray-200 dark:border-white/20">
+        <h1 className="text-3xl font-bold text-center mb-6 dark:text-white">
+          Login
+        </h1>
+
+        {error && (
+          <p className="text-red-500 text-center mb-4 text-sm">{error}</p>
+        )}
+
+        <div className="flex items-center gap-3 mb-5">
+          <select
+            value={countryCode}
+            onChange={(e) => setCountryCode(e.target.value)}
+            className="w-24 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primaryLight dark:border-gray-600 dark:bg-black dark:text-white"
           >
-            {loginMutation.isPending ? "Sending OTP..." : "Send OTP"}
-          </button>
+            <option value="91">+91 (India)</option>
+          </select>
+
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            className="flex-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primaryLight dark:border-gray-600 dark:bg-black dark:text-white"
+          />
         </div>
+
+        <button
+          onClick={handleLogin}
+          className="w-full p-2 text-lg font-medium bg-primaryDark dark:bg-primary transition-all duration-300 ease-in-out rounded-lg hover:bg-primaryLight dark:hover:bg-primaryLight text-white dark:text-primaryDark disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={loginMutation.isPending}
+        >
+          {loginMutation.isPending ? "Sending OTP..." : "Send OTP"}
+        </button>
       </div>
     </div>
   );
