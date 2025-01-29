@@ -277,7 +277,8 @@ export default function Cart() {
               </div>
               <div className="text-lg font-semibold">
                 <span className="text-gray-400">
-                  Discount Percentage: {cartItems?.data?.discount_percentage}%
+                  Discount Percentage:{" "}
+                  {cartItems?.data?.discount_percentage?.toFixed(2)}%
                 </span>
               </div>
             </div>
