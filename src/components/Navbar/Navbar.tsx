@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { RiMenu2Fill } from "react-icons/ri";
 import NavMenu from "../NavMenu/NavMenu";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
@@ -17,36 +17,24 @@ export default function Navbar() {
   const { isInVideoSection } = useVideoContext();
   const [isCountAnimating, setIsCountAnimating] = useState(false);
 
-  // state for user icon
+  // State for user menu
   const [isUserIconOpen, setIsUserIconOpen] = useState(false);
+  const userMenuRef = useRef(null);
 
   const { checkAuth, logout } = useAuth();
 
-  // Disable body scrolling when menu is open
+  // Close menu when clicking outside
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
+    function handleClickOutside(event) {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setIsUserIconOpen(false);
+      }
     }
-
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.body.style.overflow = "auto";
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isMenuOpen]);
-
-  // Animate cart count when it changes
-  useEffect(() => {
-    if (cartItemsCount !== initialCartCount) {
-      setIsCountAnimating(true);
-      const timer = setTimeout(() => setIsCountAnimating(false), 300);
-      return () => clearTimeout(timer);
-    }
-  }, [cartItemsCount, initialCartCount]);
-
-  function handleNavMenu() {
-    setIsMenuOpen(false);
-  }
+  }, []);
 
   return (
     <div className="fixed w-full top-0 z-50 transition-transform duration-300">
@@ -73,7 +61,6 @@ export default function Navbar() {
         <div className="flex items-center gap-4 md:gap-6">
           <div className="relative cursor-pointer">
             <Link to="/cart">
-              {" "}
               <FaShoppingCart className="text-xl" />
             </Link>
             {cartLoading ? (
@@ -95,14 +82,17 @@ export default function Navbar() {
           <div className="text-2xl cursor-pointer">
             <ThemeToggle />
           </div>
-          <div className="text-2xl cursor-pointer relative">
-            <FaRegCircleUser
-              onClick={() => setIsUserIconOpen(!isUserIconOpen)}
-            />
-            {isUserIconOpen && (
-              <div className="absolute top-8 -right-2 bg-primary dark:border-2 dark:border-white dark:bg-primaryDark text-primaryBlack dark:text-primary shadow-lg  text-sm px-4 py-1 rounded flex flex-col gap-1">
-                {/* todo fix the profile sreen url */}
 
+          {/* User Profile Menu */}
+          <div
+            className="relative"
+            ref={userMenuRef}
+            onMouseEnter={() => setIsUserIconOpen(true)}
+            onMouseLeave={() => setIsUserIconOpen(false)}
+          >
+            <FaRegCircleUser className="text-2xl cursor-pointer" />
+            {isUserIconOpen && (
+              <div className="absolute top-6 -right-2 bg-primary dark:border-2 dark:border-white dark:bg-primaryDark text-primaryBlack dark:text-primary shadow-lg text-sm px-4 py-2 rounded flex flex-col gap-1 w-28">
                 {checkAuth() ? (
                   <>
                     <button
@@ -110,6 +100,7 @@ export default function Navbar() {
                         navigate("/profile");
                         setIsUserIconOpen(false);
                       }}
+                      className="text-left hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-1 rounded"
                     >
                       Profile
                     </button>
@@ -120,6 +111,7 @@ export default function Navbar() {
                         setIsUserIconOpen(false);
                         navigate("/login");
                       }}
+                      className="text-left hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-1 rounded"
                     >
                       Logout
                     </button>
@@ -130,6 +122,7 @@ export default function Navbar() {
                       navigate("/login");
                       setIsUserIconOpen(false);
                     }}
+                    className="text-left hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-1 rounded"
                   >
                     Login
                   </button>
@@ -139,7 +132,7 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
-      {isMenuOpen && <NavMenu handleNavMenu={handleNavMenu} />}
+      {isMenuOpen && <NavMenu handleNavMenu={() => setIsMenuOpen(false)} />}
     </div>
   );
 }
