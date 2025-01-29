@@ -269,3 +269,17 @@ export const removeCoupon = async (token: string) => {
   });
   return response.data;
 };
+
+export const postRating = async (token: string, productId: number, ) => {
+  const response = await axios.post(
+    `${BASE_URL}/api/v1/product/${productId}/rating/`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+    }
+  );
+  return response.data;
+};
