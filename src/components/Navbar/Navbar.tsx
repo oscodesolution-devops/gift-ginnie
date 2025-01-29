@@ -104,6 +104,15 @@ export default function Navbar() {
                     >
                       Profile
                     </button>
+                    <button
+                      onClick={() => {
+                        navigate("/orders");
+                        setIsUserIconOpen(false);
+                      }}
+                      className="text-left hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-1 rounded"
+                    >
+                      Orders
+                    </button>
 
                     <button
                       onClick={() => {
