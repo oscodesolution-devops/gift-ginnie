@@ -1,6 +1,7 @@
 import { useAuth } from "../../context/Auth";
 import { getOrders } from "../../api/api";
 import { useQuery } from "@tanstack/react-query";
+import OrderSkeleton from "./OrdersSkeleton";
 
 interface OrderItem {
   id: number;
@@ -83,7 +84,7 @@ const OrderDetails = () => {
     enabled: !!accessToken,
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <OrderSkeleton />;
   if (error) return <div>Error: {error.message}</div>;
 
   const order = orders?.data;
