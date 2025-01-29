@@ -101,7 +101,7 @@ const OrderDetails = () => {
           </div>
         ) : (
           <div>
-            {order?.map((orderItem: OrderItem) => (
+            {order?.map((orderItem: OrderData) => (
               <div
                 key={orderItem.id}
                 className="max-w-7xl mx-auto bg-white dark:bg-black/50 rounded-lg shadow-lg p-6 mb-8"
@@ -122,7 +122,7 @@ const OrderDetails = () => {
                         <p className="text-gray-600 dark:text-gray-300">
                           Status:
                         </p>
-                        <p className="font-medium">{orderItem.status}</p>
+                        <p className="font-medium">{orderItem?.status}</p>
                         <p className="text-gray-600 dark:text-gray-300">
                           Total Price:
                         </p>
@@ -183,7 +183,7 @@ const OrderDetails = () => {
                       Ordered Products
                     </h2>
                     <div className="space-y-6">
-                      {orderItem.items.map((item) => (
+                      {orderItem?.items.map((item: OrderItem) => (
                         <div
                           key={item.id}
                           className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 flex flex-col md:flex-row gap-4"

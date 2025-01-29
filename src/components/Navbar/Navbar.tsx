@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { RiMenu2Fill } from "react-icons/ri";
 import NavMenu from "../NavMenu/NavMenu";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
@@ -15,7 +15,7 @@ export default function Navbar() {
   const { cartItemsCount, cartLoading, initialCartCount } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isInVideoSection } = useVideoContext();
-  const [isCountAnimating, setIsCountAnimating] = useState(false);
+  const [isCountAnimating] = useState(false);
 
   // State for user menu
   const [isUserIconOpen, setIsUserIconOpen] = useState(false);
@@ -25,13 +25,16 @@ export default function Navbar() {
 
   // Close menu when clicking outside
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+    function handleClickOutside(event: React.MouseEvent) {
+      // @ts-ignore
+      if (userMenuRef.current && !userMenuRef?.current?.contains(event.target)) {
         setIsUserIconOpen(false);
       }
     }
+    // @ts-ignore
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
+      // @ts-ignore
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);

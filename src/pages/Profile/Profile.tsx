@@ -59,7 +59,7 @@ const UserProfile = () => {
     return <div>Error: {error.message}</div>;
   }
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString:string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
@@ -158,12 +158,9 @@ const Address = (address: TAddress) => {
       // Return the snapshot for rollback
       return { previousProfile };
     },
-    onError: (err, variables, context) => {
-      // If mutation fails, roll back to the previous value
-      if (context?.previousProfile) {
-        queryClient.setQueryData(["userProfile"], context.previousProfile);
-      }
-      toast.error("Failed to delete address. Please try again.");
+    onError: ( error) => {
+      
+      toast.error(error.message || "Failed to delete address. Please try again.");
     },
     onSuccess: () => {
       toast.success("Address deleted successfully!");

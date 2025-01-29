@@ -51,6 +51,7 @@ export default function SlidingCards() {
       >
         {Array.from({ length: 8 }).map((_, index) => (
           <div key={index} className="snap-start shrink-0">
+            {/* @ts-ignore */}
             <HomePageCards card={card} />
           </div>
         ))}

@@ -5,7 +5,7 @@ export default function MainVideo() {
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.play().catch((error) => {
+      videoRef.current.play().catch(() => {
       });
     }
   }, []);

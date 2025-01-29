@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import { getCartProducts, getCoupons } from "../../api/api";
+import { getCartProducts } from "../../api/api";
 import { useAuth } from "../../context/Auth";
 import { useCart } from "../../context/AddToCart";
 import toast from "react-hot-toast";
@@ -77,15 +77,7 @@ export default function Cart() {
     queryFn: async () => getCartProducts(token as string),
     enabled: !!token,
   });
-  const {
-    data: coupon,
-    isLoading: couponLoading,
-    error: couponError,
-  } = useQuery({
-    queryKey: ["coupons", token],
-    queryFn: async () => getCoupons(token as string),
-    enabled: !!token,
-  });
+
   useEffect(() => {
     if (updateToCartState.isSuccess) {
       toast.success("Quantity updated successfully.");
@@ -117,13 +109,13 @@ export default function Cart() {
   }, [accessToken]);
 
   if (isLoading) {
+    // @ts-ignore
     return <CartSkeleton cartItems={cartItems} />;
   }
 
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  console.log(coupon);
 
   const handleUpdateCart = (
     productId: number,

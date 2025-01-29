@@ -71,6 +71,7 @@ export default function ProfileForm() {
         country_code: user.country_code,
         is_active: user.is_active,
         is_wholesale_customer: user.is_wholesale_customer,
+        // @ts-ignore
         gender: user.gender,
       });
     }

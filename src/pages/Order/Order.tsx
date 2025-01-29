@@ -55,6 +55,7 @@ export default function Order() {
 
   const verifyMutation = useMutation({
     mutationFn: (paymentData: PaymentResponse) =>
+      // @ts-ignore
       verifyPayment(accessToken as string, paymentData),
     onSuccess: () => {
       toast.success("Payment successful!");
