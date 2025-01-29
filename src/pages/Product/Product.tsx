@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import Hero from "../../components/Hero/Hero";
 import Reviews from "../../components/Reviews/Reviews";
 import Trending from "../../components/TrendingSection/Trending";
@@ -12,8 +11,7 @@ import { useParams } from "react-router-dom";
 import ProductSkeleton from "./ProductSkeleton";
 import { useCart } from "../../context/AddToCart";
 import toast from "react-hot-toast";
-
-
+import ReviewComponent from "../../components/Review/Review";
 
 export default function Product() {
   const { productId } = useParams();
@@ -105,8 +103,7 @@ function ProductInfo({ product }: { product: TProduct }) {
     }
   }, [addToCartState, resetAddToCartState]);
 
-
-  console.log(product)
+  console.log(product);
 
   return (
     <div className="w-full min-h-screen sm:mt-20">
@@ -179,17 +176,13 @@ function ProductInfo({ product }: { product: TProduct }) {
           </div> */}
 
           <div className="py-6 flex flex-col gap-4">
-              <div >
-                <div
-                  
-                  className="flex justify-between items-center cursor-pointer w-full"
-                >
-                  <span className="font-bold">description</span>
-                 
-                </div>
-                
-                  <p className="py-5 text-sm">{product.brand}</p>
+            <div>
+              <div className="flex justify-between items-center cursor-pointer w-full">
+                <span className="font-bold">description</span>
               </div>
+
+              <p className="py-5 text-sm">{product.brand}</p>
+            </div>
           </div>
 
           <div className="mb-6">
@@ -222,6 +215,7 @@ function ProductInfo({ product }: { product: TProduct }) {
           </div>
         </div>
       </div>
+      <ReviewComponent />
       <Hero />
       <Reviews />
       <Trending />
