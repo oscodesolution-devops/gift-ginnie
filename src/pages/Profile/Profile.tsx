@@ -11,6 +11,7 @@ import { useAuth } from "../../context/Auth";
 import ProfileSkeleton from "./ProfileSkeleton";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 type TAddress = {
   id: number;
@@ -72,10 +73,16 @@ const UserProfile = () => {
         {/* User Info Card */}
         <div className="bg-white dark:bg-primaryDark dark:border-2 dark:border-white dark:text-white rounded-lg shadow-md">
           <div className="border-b border-gray-200 p-6">
-            <div className="flex items-center space-x-4">
-              <div className="h-16 w-16 rounded-full bg-gray-200 flex items-center justify-center">
+            <div className="flex relative items-center space-x-4">
+              <div className="h-16 w-16  rounded-full bg-gray-200 flex items-center justify-center">
                 <FaUser className="h-8 w-8 text-gray-600" />
               </div>
+              <Link to="/update-profile">
+                {" "}
+                <button className="bg-black absolute right-0 text-white px-2 py-1 rounded dark:bg-white dark:text-black">
+                  Update
+                </button>
+              </Link>
               <div>
                 <h1 className="text-2xl font-bold">{user?.full_name}</h1>
                 <div className="flex items-center space-x-2 text-gray-600">
