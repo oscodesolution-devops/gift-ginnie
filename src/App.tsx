@@ -35,9 +35,25 @@ function App() {
           <VideoProvider>
             <MainLayout>
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/products" element={<Advisiable />} />
-                <Route path="/product/:productId" element={<Product />} />
+                <Route
+                  path="/"
+                  element={
+                    <ProtectedRoute>
+                      <Home />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/products"
+                  element={
+                    <ProtectedRoute>
+                      <Advisiable />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/product/:productId" element={<ProtectedRoute>
+                      <Product />
+                    </ProtectedRoute>} />
                 <Route path="/blogs" element={<Blogs />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/contact" element={<Contact />} />
