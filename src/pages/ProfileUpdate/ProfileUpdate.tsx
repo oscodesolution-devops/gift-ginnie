@@ -48,20 +48,10 @@ export default function ProfileForm() {
       navigate("/");
     },
     onError: (error: any) => {
-      if (error.response?.data && typeof error.response.data === "object") {
-        const fieldErrors: FormErrors = {};
-        Object.entries(error.response.data).forEach(([key, value]) => {
-          if (key in formData) {
-            fieldErrors[key as keyof FormErrors] = Array.isArray(value)
-              ? value[0]
-              : String(value);
-          }
-        });
-        setErrors(fieldErrors);
-        toast.error("Please correct the errors in the form");
-      } else {
-        toast.error("Failed to update profile. Please try again.");
-      }
+      toast.error(
+        error.response.data.data.email[0] ||
+          "Failed to update profile. Please try again."
+      );
     },
   });
 
