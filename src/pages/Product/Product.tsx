@@ -13,23 +13,7 @@ import ProductSkeleton from "./ProductSkeleton";
 import { useCart } from "../../context/AddToCart";
 import toast from "react-hot-toast";
 
-const productDescription: { title: string; content: string }[] = [
-  {
-    title: "Product Description",
-    content:
-      "The sun dipped below the horizon, casting hues of amber and crimson across the tranquil sea. In the distance, a lone gull circled above the waves, its cries fading into the soft whisper of the evening breeze. Beneath the fading light, the world seemed to pause, as if nature herself held her breath in anticipation of the night to come.",
-  },
-  {
-    title: "Material",
-    content:
-      "The sun dipped below the horizon, casting hues of amber and crimson across the tranquil sea. In the distance, a lone gull circled above the waves, its cries fading into the soft whisper of the evening breeze. Beneath the fading light, the world seemed to pause, as if nature herself held her breath in anticipation of the night to come.",
-  },
-  {
-    title: "Delivery",
-    content:
-      "The sun dipped below the horizon, casting hues of amber and crimson across the tranquil sea. In the distance, a lone gull circled above the waves, its cries fading into the soft whisper of the evening breeze. Beneath the fading light, the world seemed to pause, as if nature herself held her breath in anticipation of the night to come.",
-  },
-];
+
 
 export default function Product() {
   const { productId } = useParams();
@@ -71,7 +55,6 @@ export default function Product() {
 function ProductInfo({ product }: { product: TProduct }) {
   const { addToCart, addToCartState, resetAddToCartState } = useCart();
 
-  const [openDescription, setOpenDescription] = useState(-1);
   // state to keep track of quantity
   const [quantity, setQuantity] = useState(1);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -121,6 +104,9 @@ function ProductInfo({ product }: { product: TProduct }) {
       toast.error("Failed to add product to cart. Please try again.");
     }
   }, [addToCartState, resetAddToCartState]);
+
+
+  console.log(product)
 
   return (
     <div className="w-full min-h-screen sm:mt-20">
@@ -193,28 +179,17 @@ function ProductInfo({ product }: { product: TProduct }) {
           </div> */}
 
           <div className="py-6 flex flex-col gap-4">
-            {productDescription.map((description, index) => (
-              <div key={description.title}>
+              <div >
                 <div
-                  onClick={() =>
-                    setOpenDescription(openDescription === index ? -1 : index)
-                  }
+                  
                   className="flex justify-between items-center cursor-pointer w-full"
                 >
-                  <span className="font-bold">{description.title}</span>
-                  <span>
-                    {openDescription === index ? (
-                      <FaAngleUp />
-                    ) : (
-                      <FaAngleDown />
-                    )}
-                  </span>
+                  <span className="font-bold">description</span>
+                 
                 </div>
-                {openDescription === index && (
-                  <p className="py-5 text-sm">{description.content}</p>
-                )}
+                
+                  <p className="py-5 text-sm">{product.brand}</p>
               </div>
-            ))}
           </div>
 
           <div className="mb-6">
