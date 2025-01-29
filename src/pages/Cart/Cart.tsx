@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import { getCartProducts } from "../../api/api";
+import { getCartProducts, getCoupons } from "../../api/api";
 import { useAuth } from "../../context/Auth";
 import { useCart } from "../../context/AddToCart";
 import toast from "react-hot-toast";
@@ -77,6 +77,15 @@ export default function Cart() {
     queryFn: async () => getCartProducts(token as string),
     enabled: !!token,
   });
+  const {
+    data: coupon,
+    isLoading: couponLoading,
+    error: couponError,
+  } = useQuery({
+    queryKey: ["coupons", token],
+    queryFn: async () => getCoupons(token as string),
+    enabled: !!token,
+  });
   useEffect(() => {
     if (updateToCartState.isSuccess) {
       toast.success("Quantity updated successfully.");
@@ -114,6 +123,7 @@ export default function Cart() {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+  console.log(coupon);
 
   const handleUpdateCart = (
     productId: number,
@@ -174,6 +184,13 @@ export default function Cart() {
                 </div>
                 <div className="text-sm leading-6">
                   {item.product.description.slice(0, 100)}...
+                </div>
+                <div>
+                  {item.product.in_stock ? (
+                    <div className="text-green-500">In Stock</div>
+                  ) : (
+                    <div className="text-red-500">Out of Stock</div>
+                  )}
                 </div>
                 <div className="flex justify-start gap-4 items-center text-lg">
                   <div className="font-medium dark:text-white/80">
@@ -264,12 +281,26 @@ export default function Cart() {
                 </span>
               </div>
             </div>
-            <div className="flex justify-center items-center">
-              <Link to="/address">
-                <button className="bg-primaryDark dark:bg-primary uppercase font-bold text-white py-2 px-5 dark:text-black">
+            <div className="flex justify-center flex-col items-center">
+              <Link to="/coupons">
+                <button
+                  disabled={
+                    !cartItems?.data?.items.every(
+                      (item: TCartItem) => item.product.in_stock === true
+                    )
+                  }
+                  className="bg-primaryDark dark:bg-primary disabled:cursor-not-allowed uppercase font-bold text-white py-2 px-5 dark:text-black"
+                >
                   Proceed
                 </button>
               </Link>
+              {!cartItems?.data?.items.every(
+                (item: TCartItem) => item.product.in_stock === true
+              ) && (
+                <p className="text-sm mt-2 text-red-500">
+                  Remove the items which are out of stock
+                </p>
+              )}
             </div>
           </div>
         </>

@@ -23,6 +23,8 @@ import Order from "./pages/Order/Order";
 import { ProtectedRoute } from "./context/ProtectedRoutes";
 import UserProfile from "./pages/Profile/Profile";
 import ProfileForm from "./pages/ProfileUpdate/ProfileUpdate";
+import OrderSummary from "./pages/Orders/Orders";
+import CouponPage from "./pages/Coupons/Coupons";
 
 function App() {
   return (
@@ -49,10 +51,26 @@ function App() {
                   }
                 />
                 <Route
+                  path="/orders"
+                  element={
+                    <ProtectedRoute>
+                      <OrderSummary />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
                   path="/profile"
                   element={
                     <ProtectedRoute>
                       <UserProfile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/coupons"
+                  element={
+                    <ProtectedRoute>
+                      <CouponPage />
                     </ProtectedRoute>
                   }
                 />

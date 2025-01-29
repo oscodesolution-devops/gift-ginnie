@@ -245,3 +245,27 @@ export const getCoupons = async (token: string) => {
   });
   return response.data;
 };
+export const applyCoupon = async (token: string, code: string) => {
+  const response = await axios.post(
+    `${BASE_URL}/api/v1/cart/applyCoupon/`,
+    { code },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+    }
+  );
+  return response.data;
+};
+export const removeCoupon = async (token: string) => {
+  const response = await axios.delete(`${BASE_URL}/api/v1/cart/applyCoupon/`, {
+    headers: {
+      accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
