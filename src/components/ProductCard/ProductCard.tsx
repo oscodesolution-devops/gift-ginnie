@@ -23,8 +23,6 @@ export default function ProductCard({ card }: { card: TProduct }) {
     },
   });
 
- 
-
   const handleLikeClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Stop event propagation
     mutation.mutate();
@@ -35,7 +33,7 @@ export default function ProductCard({ card }: { card: TProduct }) {
       <div className="relative">
         <Link to={`/product/${card.id}`}>
           <img
-            src={card.category.image}
+            src={card.images[0].image}
             alt={card.name}
             className="w-full h-64 object-cover"
           />
