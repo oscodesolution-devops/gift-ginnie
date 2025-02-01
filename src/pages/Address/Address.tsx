@@ -1,9 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAuth } from "../../context/Auth";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { addAddress } from "../../api/api";
+import { addAddress, getUserProfile } from "../../api/api";
+import { TAddress } from "../Profile/Profile";
 
 export interface AddressForm {
   address_line_1: string;
@@ -51,6 +52,7 @@ export default function AddressForm() {
       });
 
       setErrors({});
+      console.log(data);
 
       navigate("/order", { state: { address_id: data.data.id } });
     },
@@ -111,7 +113,8 @@ export default function AddressForm() {
 
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-primary dark:bg-primaryDark  text-black dark:text-white">
+      <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 bg-primary dark:bg-primaryDark  text-black dark:text-white">
+        <Address />
         <div className="w-full max-w-md space-y-8 dark:border-2 dark:border-primary  p-6 rounded-xl shadow-lg">
           <div>
             <h2 className="text-center text-3xl font-bold tracking-tight ">
@@ -122,10 +125,7 @@ export default function AddressForm() {
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-6 rounded-md shadow-sm">
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium "
-                >
+                <label htmlFor="email" className="block text-sm font-medium ">
                   Email
                 </label>
                 <input
@@ -285,3 +285,117 @@ export default function AddressForm() {
     </>
   );
 }
+
+const Address = () => {
+  const navigate = useNavigate();
+  const [selectedAddress, setSelectedAddress] = useState<number>(-1);
+  const { accessToken } = useAuth();
+  const {
+    data: userData,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["userProfile"],
+    queryFn: () => getUserProfile(accessToken as string),
+    enabled: !!accessToken,
+  });
+
+  if (isLoading) return;
+  <div className="mb-10">
+    <div className="w-full text-4xl text-center my-5 font-bold">
+      <div className="h-8 w-2/3 mx-auto bg-gray-300 dark:bg-gray-700 animate-pulse rounded"></div>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {[...Array(3)].map((_, index) => (
+        <div
+          key={index}
+          className="bg-white dark:bg-primaryDark dark:border-2 dark:border-white dark:text-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+        >
+          <div className="p-4">
+            <div className="flex justify-between items-start mb-2">
+              <div className="h-6 w-16 bg-gray-200 dark:bg-gray-600 animate-pulse rounded"></div>
+            </div>
+            <div className="space-y-2">
+              <div className="h-4 w-3/4 bg-gray-200 dark:bg-gray-600 animate-pulse rounded"></div>
+              <div className="h-4 w-2/3 bg-gray-200 dark:bg-gray-600 animate-pulse rounded"></div>
+              <div className="h-4 w-1/2 bg-gray-200 dark:bg-gray-600 animate-pulse rounded"></div>
+              <div className="h-4 w-1/3 bg-gray-200 dark:bg-gray-600 animate-pulse rounded"></div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>;
+
+  if (isError) return <div>{error.message}</div>;
+
+  const address: TAddress[] = userData?.data?.addresses;
+
+  return (
+    <div>
+      {address.length > 0 && (
+        <div className="mb-10">
+          <div className="w-full text-4xl text-center my-5 font-bold">
+            Select from available addresses
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {address.map((add: TAddress) => (
+              <div
+                key={add.id}
+                onClick={() => {
+                  setSelectedAddress(add.id);
+                }}
+                className={`bg-white dark:bg-primaryDark dark:border-2 cursor-pointer dark:border-white dark:text-white rounded-lg shadow-md hover:shadow-lg transition-shadow ${
+                  selectedAddress === add.id
+                    ? "ring-2 ring-black dark:bg-white"
+                    : ""
+                }`}
+              >
+                <div className="p-4">
+                  <div className="flex justify-between items-start mb-2">
+                    <span
+                      className={`inline-block px-2 py-1 text-xs font-semibold bg-gray-100 dark:text-black rounded`}
+                    >
+                      {add.address_type === "H" ? "Home" : "Business"}
+                    </span>
+                  </div>
+                  <div
+                    className={`space-y-1 text-sm ${
+                      selectedAddress === add.id ? " dark:text-black" : ""
+                    }`}
+                  >
+                    <p className="font-medium">{add?.address_line_1}</p>
+                    {add?.address_line_2 && <p>{add?.address_line_2}</p>}
+                    <p>
+                      {add?.city}, {add?.state}
+                    </p>
+                    <p>
+                      {add?.country.toUpperCase()}, {add?.pincode}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center w-full">
+            <button
+              onClick={() => {
+                navigate("/order", { state: { address_id: selectedAddress } });
+              }}
+              className={`bg-black dark:bg-white dark:text-black text-white text-center  py-2 px-4 rounded-lg mt-4 ${
+                selectedAddress === -1 ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={selectedAddress === -1}
+            >
+              Proceed
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
