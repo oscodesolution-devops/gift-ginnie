@@ -1,13 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPopularCategories } from "../../api/api";
-import DefaultHeroCards from "./DefaultHeroCards";
 import FixedHeroCards from "./FixedHeroCards";
 
 import NotFixedHeroCards from "./NotFixedHeroCards";
 
+
 export default function HeroCards() {
-
-
   const {
     data: popularcatogories,
     isLoading,
@@ -27,11 +25,10 @@ export default function HeroCards() {
   }
 
   if (popularcatogories) {
-    if (popularcatogories.data[0].fixed === true) {
+    if (popularcatogories.data.length === 5) {
       return <FixedHeroCards imagesData={popularcatogories.data} />;
     } else {
       return <NotFixedHeroCards popularcatogories={popularcatogories} />;
     }
   }
-  return <DefaultHeroCards />;
 }
