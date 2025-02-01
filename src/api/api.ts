@@ -310,12 +310,14 @@ export const removeCoupon = async (token: string) => {
 export const postRating = async (
   token: string,
   productId: number,
-  rating: number
+  rating: number,
+  review: string
 ) => {
   const response = await axios.post(
     `${BASE_URL}/api/v1/product/${productId}/rating/`,
     {
       rating: rating,
+      review: review,
     },
     {
       headers: {

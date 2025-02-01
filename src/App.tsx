@@ -25,6 +25,7 @@ import UserProfile from "./pages/Profile/Profile";
 import ProfileForm from "./pages/ProfileUpdate/ProfileUpdate";
 import OrderSummary from "./pages/Orders/Orders";
 import CouponPage from "./pages/Coupons/Coupons";
+import { Helmet } from "react-helmet-async";
 
 function App() {
   return (
@@ -35,92 +36,244 @@ function App() {
           <VideoProvider>
             <MainLayout>
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/products" element={<Advisiable />} />
+                <Route
+                  path="/"
+                  element={
+                    <>
+                      <Helmet>
+                        <title>Home</title>
+                      </Helmet>
+                      <Home />
+                    </>
+                  }
+                />
+                <Route
+                  path="/products"
+                  element={
+                    <>
+                      <Helmet>
+                        <title>Our Products</title>
+                      </Helmet>
+                      <Advisiable />
+                    </>
+                  }
+                />
                 <Route
                   path="/product/:productId"
                   element={
-                    <ProtectedRoute>
-                      <Product />
-                    </ProtectedRoute>
+                    <>
+                      <Helmet>
+                        <title>Product Details</title>
+                      </Helmet>
+                      <ProtectedRoute>
+                        <Product />
+                      </ProtectedRoute>
+                    </>
                   }
                 />
-                <Route path="/blogs" element={<Blogs />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/faq" element={<FAQ />} />
+                <Route
+                  path="/blogs"
+                  element={
+                    <>
+                      <Helmet>
+                        <title>Blogs</title>
+                      </Helmet>
+                      <Blogs />
+                    </>
+                  }
+                />
+                <Route
+                  path="/blog"
+                  element={
+                    <>
+                      <Helmet>
+                        <title>Blog</title>
+                      </Helmet>
+                      <Blog />
+                    </>
+                  }
+                />
+                <Route
+                  path="/contact"
+                  element={
+                    <>
+                      <Helmet>
+                        <title>Contact Us</title>
+                      </Helmet>
+                      <Contact />
+                    </>
+                  }
+                />
+                <Route
+                  path="/faq"
+                  element={
+                    <>
+                      <Helmet>
+                        <title>FAQ</title>
+                      </Helmet>
+                      <FAQ />
+                    </>
+                  }
+                />
                 <Route
                   path="/cart"
                   element={
-                    <ProtectedRoute>
-                      <CartPage />
-                    </ProtectedRoute>
+                    <>
+                      <Helmet>
+                        <title>Your Cart</title>
+                      </Helmet>
+                      <ProtectedRoute>
+                        <CartPage />
+                      </ProtectedRoute>
+                    </>
                   }
                 />
                 <Route
                   path="/orders"
                   element={
-                    <ProtectedRoute>
-                      <OrderSummary />
-                    </ProtectedRoute>
+                    <>
+                      <Helmet>
+                        <title>Your Orders</title>
+                      </Helmet>
+                      <ProtectedRoute>
+                        <OrderSummary />
+                      </ProtectedRoute>
+                    </>
                   }
                 />
                 <Route
                   path="/profile"
                   element={
-                    <ProtectedRoute>
-                      <UserProfile />
-                    </ProtectedRoute>
+                    <>
+                      <Helmet>
+                        <title>Your Profile</title>
+                      </Helmet>
+                      <ProtectedRoute>
+                        <UserProfile />
+                      </ProtectedRoute>
+                    </>
                   }
                 />
                 <Route
                   path="/coupons"
                   element={
-                    <ProtectedRoute>
-                      <CouponPage />
-                    </ProtectedRoute>
+                    <>
+                      <Helmet>
+                        <title>Coupons</title>
+                      </Helmet>
+                      <ProtectedRoute>
+                        <CouponPage />
+                      </ProtectedRoute>
+                    </>
                   }
                 />
                 <Route
                   path="/update-profile"
                   element={
-                    <ProtectedRoute>
-                      <ProfileForm />
-                    </ProtectedRoute>
+                    <>
+                      <Helmet>
+                        <title>Update Profile</title>
+                      </Helmet>
+                      <ProtectedRoute>
+                        <ProfileForm />
+                      </ProtectedRoute>
+                    </>
                   }
                 />
                 <Route
                   path="/favourites"
                   element={
-                    <ProtectedRoute>
-                      <Favourites />
-                    </ProtectedRoute>
+                    <>
+                      <Helmet>
+                        <title>Your Favourites</title>
+                      </Helmet>
+                      <ProtectedRoute>
+                        <Favourites />
+                      </ProtectedRoute>
+                    </>
                   }
                 />
                 <Route
                   path="/address"
                   element={
-                    <ProtectedRoute>
-                      <AddressForm />
-                    </ProtectedRoute>
+                    <>
+                      <Helmet>
+                        <title>Address Form</title>
+                      </Helmet>
+                      <ProtectedRoute>
+                        <AddressForm />
+                      </ProtectedRoute>
+                    </>
                   }
                 />
                 <Route
                   path="/order"
                   element={
-                    <ProtectedRoute>
-                      <Order />
-                    </ProtectedRoute>
+                    <>
+                      <Helmet>
+                        <title>Order Details</title>
+                      </Helmet>
+                      <ProtectedRoute>
+                        <Order />
+                      </ProtectedRoute>
+                    </>
                   }
                 />
                 <Route
                   path="/terms-and-conditions"
-                  element={<TermsAndConditions />}
+                  element={
+                    <>
+                      <Helmet>
+                        <title>Terms and Conditions</title>
+                      </Helmet>
+                      <TermsAndConditions />
+                    </>
+                  }
                 />
-                <Route path="/login" element={<LoginScreen />} />
-                <Route path="/otp" element={<OTPInput />} />
-                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                <Route path="*" element={<PageNotFound />} />
+                <Route
+                  path="/login"
+                  element={
+                    <>
+                      <Helmet>
+                        <title>Login</title>
+                      </Helmet>
+                      <LoginScreen />
+                    </>
+                  }
+                />
+                <Route
+                  path="/otp"
+                  element={
+                    <>
+                      <Helmet>
+                        <title>OTP Verification</title>
+                      </Helmet>
+                      <OTPInput />
+                    </>
+                  }
+                />
+                <Route
+                  path="/privacy-policy"
+                  element={
+                    <>
+                      <Helmet>
+                        <title>Privacy Policy</title>
+                      </Helmet>
+                      <PrivacyPolicy />
+                    </>
+                  }
+                />
+                <Route
+                  path="*"
+                  element={
+                    <>
+                      <Helmet>
+                        <title>Page Not Found</title>
+                      </Helmet>
+                      <PageNotFound />
+                    </>
+                  }
+                />
               </Routes>
             </MainLayout>
           </VideoProvider>

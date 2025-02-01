@@ -64,6 +64,7 @@ export default function Blogs() {
   const [cards] = useState<CardProps[]>(cardsList);
   return (
     <div className="w-full min-h-screen flex justify-center items-center flex-col">
+      
       <div className="px-6 py-16 lg:px-36 md:py-20 dark:text-white w-full">
         <Breadcrumbs />
         <div className="flex flex-col gap-8  sm:grid sm:grid-cols-2 lg:grid-cols-3">

@@ -7,6 +7,7 @@ import Trending from "../../components/TrendingSection/Trending";
 export default function Home() {
   return (
     <div className="w-full min-h-screen">
+      
       <MainVideo />
       <Hero />
       <HeroCards />
