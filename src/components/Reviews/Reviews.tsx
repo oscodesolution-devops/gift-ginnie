@@ -1,46 +1,43 @@
 import { motion } from "framer-motion";
 import { IoStarSharp } from "react-icons/io5";
+import { getReviews } from "../../api/api";
+import { useAuth } from "../../context/Auth";
+import { useQuery } from "@tanstack/react-query";
+import ReviewSkeleton from "./ReviewSkeleton";
 
-const reviews = [
-  {
-    rating: 5,
-    review:
-      "Love these jeans! They're comfy, stylish, and durable. Perfect for everyday wear. Highly recommend!",
-    name: "Steve",
-  },
-  {
-    rating: 4,
-    review: "Great fit, but the color faded a little after washing.",
-    name: "Anna",
-  },
-  {
-    rating: 5,
-    review:
-      "Amazing quality! I've been wearing them for months with no issues.",
-    name: "Mark",
-  },
-  {
-    rating: 3,
-    review:
-      "Comfortable but not true to size. Had to exchange for a larger size.",
-    name: "Sophia",
-  },
-  {
-    rating: 5,
-    review: "Stylish and fits perfectly. These are my favorite jeans now!",
-    name: "John",
-  },
-];
+type TReviews = {
+  id: number;
+  product_id: number;
+  rating: number;
+  review: string;
+  user_id: number;
+  created_at: string;
+};
 
-export default function Reviews() {
+export default function Reviews({ productId }: { productId: number }) {
+  const { accessToken } = useAuth();
+  const {
+    data: reviews,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["reviews"],
+    queryFn: async () => getReviews(accessToken as string, productId),
+    enabled: !!accessToken && !!productId,
+  });
+
+  if (isLoading) {
+    return <ReviewSkeleton />;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
   return (
     <div>
       <div className="mb-6 ">
         <div className="w-full text-center uppercase font-bold text-3xl px-4 sm:text-4xl mb-4 dark:text-white">
           THE OPINION OF OUR CUSTOMERS
-        </div>
-        <div className="w-full text-center uppercase font-bold text-xl px-4 sm:text-2xl mb-14 dark:text-white/70">
-          OVER 1.000 SATISFIED CUSTOMERS
         </div>
       </div>
       <div className="w-full relative overflow-hidden">
@@ -58,9 +55,9 @@ export default function Reviews() {
             },
           }}
         >
-          {reviews.map((review, index) => (
+          {reviews?.data?.ratings?.map((review: TReviews) => (
             <div
-              key={`${review.name}-${index}`}
+              key={`${review.id}`}
               className="flex flex-shrink-0 justify-between w-[400px] overflow-hidden flex-col gap-3 border-2 p-4 rounded-lg shadow-md dark:text-primary"
             >
               {/* Rating */}
@@ -73,12 +70,12 @@ export default function Reviews() {
               {/* Review */}
               <div>{review.review}</div>
               {/* Name */}
-              <div className="text-gray-500">- {review.name}</div>
+              <div className="text-gray-500">- user {review.user_id}</div>
             </div>
           ))}
-          {reviews.map((review, index) => (
+          {reviews?.data?.ratings?.map((review: TReviews) => (
             <div
-              key={`${review.name}-${index}`}
+              key={`${review.id}`}
               className="flex flex-shrink-0 justify-between w-[400px] overflow-hidden flex-col gap-3 border-2 p-4 rounded-lg shadow-md dark:text-primary"
             >
               {/* Rating */}
@@ -91,12 +88,12 @@ export default function Reviews() {
               {/* Review */}
               <div>{review.review}</div>
               {/* Name */}
-              <div className="text-gray-500">- {review.name}</div>
+              <div className="text-gray-500">- user {review.user_id}</div>
             </div>
           ))}
-          {reviews.map((review, index) => (
+          {reviews?.data?.ratings?.map((review: TReviews) => (
             <div
-              key={`${review.name}-${index}`}
+              key={`${review.id}`}
               className="flex flex-shrink-0 justify-between w-[400px] overflow-hidden flex-col gap-3 border-2 p-4 rounded-lg shadow-md dark:text-primary"
             >
               {/* Rating */}
@@ -109,7 +106,61 @@ export default function Reviews() {
               {/* Review */}
               <div>{review.review}</div>
               {/* Name */}
-              <div className="text-gray-500">- {review.name}</div>
+              <div className="text-gray-500">- user {review.user_id}</div>
+            </div>
+          ))}
+          {reviews?.data?.ratings?.map((review: TReviews) => (
+            <div
+              key={`${review.id}`}
+              className="flex flex-shrink-0 justify-between w-[400px] overflow-hidden flex-col gap-3 border-2 p-4 rounded-lg shadow-md dark:text-primary"
+            >
+              {/* Rating */}
+              <div className="flex gap-2 items-center">
+                {Array.from({ length: review.rating }, (_, i) => (
+                  <IoStarSharp key={i} />
+                ))}
+                <div>{review.rating}/5</div>
+              </div>
+              {/* Review */}
+              <div>{review.review}</div>
+              {/* Name */}
+              <div className="text-gray-500">- user {review.user_id}</div>
+            </div>
+          ))}
+          {reviews?.data?.ratings?.map((review: TReviews) => (
+            <div
+              key={`${review.id}`}
+              className="flex flex-shrink-0 justify-between w-[400px] overflow-hidden flex-col gap-3 border-2 p-4 rounded-lg shadow-md dark:text-primary"
+            >
+              {/* Rating */}
+              <div className="flex gap-2 items-center">
+                {Array.from({ length: review.rating }, (_, i) => (
+                  <IoStarSharp key={i} />
+                ))}
+                <div>{review.rating}/5</div>
+              </div>
+              {/* Review */}
+              <div>{review.review}</div>
+              {/* Name */}
+              <div className="text-gray-500">- user {review.user_id}</div>
+            </div>
+          ))}
+          {reviews?.data?.ratings?.map((review: TReviews) => (
+            <div
+              key={`${review.id}`}
+              className="flex flex-shrink-0 justify-between w-[400px] overflow-hidden flex-col gap-3 border-2 p-4 rounded-lg shadow-md dark:text-primary"
+            >
+              {/* Rating */}
+              <div className="flex gap-2 items-center">
+                {Array.from({ length: review.rating }, (_, i) => (
+                  <IoStarSharp key={i} />
+                ))}
+                <div>{review.rating}/5</div>
+              </div>
+              {/* Review */}
+              <div>{review.review}</div>
+              {/* Name */}
+              <div className="text-gray-500">- user {review.user_id}</div>
             </div>
           ))}
         </motion.div>
