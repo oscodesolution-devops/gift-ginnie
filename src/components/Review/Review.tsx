@@ -15,11 +15,12 @@ export default function ReviewComponent() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: () => {
+    mutationFn: ({ rating, review }: { rating: number; review: string }) => {
       return postRating(
         accessToken as string,
         parseInt(productId as string),
-        rating
+        rating,
+        review
       );
     },
     onSuccess: (data) => {
@@ -42,7 +43,7 @@ export default function ReviewComponent() {
     }
     setRating(0);
     setReview("");
-    mutation.mutate();
+    mutation.mutate({ rating, review });
   };
 
   return (
