@@ -1,9 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
 import { getPopularProducts } from "../../api/api";
-import { useAuth } from "../../context/Auth";
 import HomeHeading from "../HomeHeading/HomeHeading";
-import SlidingCards from "../SlidingCards/SlidingCards";
 import { TPopularProductItem } from "../../types/Types";
 import SlidingCards2 from "../SlidingCards/SlidingCards2";
 
@@ -17,23 +14,18 @@ type TPopularProductCategory = {
 };
 
 export default function Trending() {
-  const { accessToken, isAuthenticated } = useAuth();
-  const [token, setToken] = useState<string | null>(null);
   const {
     data: popularProducts,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["popularProducts", token],
-    queryFn: async () => getPopularProducts(token as string),
-    enabled: !!token,
+    queryKey: ["popularProducts"],
+    queryFn: async () => getPopularProducts(),
+    // enabled: !!token,
   });
+  console.log(popularProducts);
 
-  useEffect(() => {
-  if (accessToken) {
-      setToken(accessToken);
-    }
-  }, [token, accessToken]);
+
 
   if (isLoading) {
     return <div>loading</div>;
@@ -46,7 +38,7 @@ export default function Trending() {
   return (
     <div className="w-full mt-20">
       <HomeHeading heading={"Trending Now"} />
-      {isAuthenticated ? (
+      {popularProducts && (
         <div>
           {popularProducts?.data?.map((product: TPopularProductCategory) => (
             <>
@@ -56,15 +48,14 @@ export default function Trending() {
               >
                 {product.name}
               </div>
-              <SlidingCards2 card={product.images} key={product.id} navigationId={product.id} />
+              <SlidingCards2
+                card={product.images}
+                key={product.id}
+                navigationId={product.id}
+              />
             </>
           ))}
         </div>
-      ) : (
-        <>
-          <SlidingCards />
-          <SlidingCards />
-        </>
       )}
     </div>
   );
