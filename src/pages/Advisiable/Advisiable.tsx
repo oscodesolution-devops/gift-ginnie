@@ -1,115 +1,32 @@
-import { useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Subscribe from "../../components/Subscribe/Subscribe";
-import {  TProduct } from "../../types/Types";
+import { TProduct } from "../../types/Types";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProduct } from "../../api/api";
-import { useAuth } from "../../context/Auth";
 import ProductSkeleton from "./ProductLoading";
-
-// const cardsList = [
-//   {
-//     image:
-//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-//     stock: "full-stock",
-//     title: "Perfumes",
-//     discount: "50%",
-//     price: "$50.00",
-//     originalPrice: "$100",
-//     styles: "2 Styles available",
-//   },
-//   {
-//     image:
-//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-//     stock: "full-stock",
-//     title: "Perfumes",
-//     discount: "50%",
-//     price: "$50.00",
-//     originalPrice: "$100",
-//     styles: "2 Styles available",
-//   },
-//   {
-//     image:
-//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-//     stock: "full-stock",
-//     title: "Perfumes",
-//     discount: "50%",
-//     price: "$50.00",
-//     originalPrice: "$100",
-//     styles: "2 Styles available",
-//   },
-//   {
-//     image:
-//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-//     stock: "full-stock",
-//     title: "Perfumes",
-//     discount: "50%",
-//     price: "$50.00",
-//     originalPrice: "$100",
-//     styles: "2 Styles available",
-//   },
-//   {
-//     image:
-//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-//     stock: "full-stock",
-//     title: "Perfumes",
-//     discount: "50%",
-//     price: "$50.00",
-//     originalPrice: "$100",
-//     styles: "2 Styles available",
-//   },
-//   {
-//     image:
-//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-//     stock: "full-stock",
-//     title: "Perfumes",
-//     discount: "50%",
-//     price: "$50.00",
-//     originalPrice: "$100",
-//     styles: "2 Styles available",
-//   },
-//   {
-//     image:
-//       "https://framerusercontent.com/images/GkRJl51IhHmJvnNeCmFnbB0ezo.jpg?scale-down-to=1024",
-//     stock: "full-stock",
-//     title: "Perfumes",
-//     discount: "50%",
-//     price: "$50.00",
-//     originalPrice: "$100",
-//     styles: "2 Styles available",
-//   },
-// ];
-
-
+import { useAuth } from "../../context/Auth";
 
 export default function Advisiable() {
   const { accessToken } = useAuth();
-  const [token, setToken] = useState<string | null>(null);
   const {
     data: allProducts,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["allProducts", accessToken],
-    queryFn: async () => getAllProduct(token as string),
-    enabled: !!accessToken,
+    queryKey: ["allProducts"],
+    queryFn: async () => getAllProduct(accessToken as string),
   });
 
-  useEffect(() => {
-    if (accessToken) {
-      setToken(accessToken);
-    }
-  }, [accessToken]);
+  console.log(allProducts);
 
   if (isLoading) {
-    return <ProductSkeleton/>;
+    return <ProductSkeleton />;
   }
 
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
 
   return (
     <div className="w-full min-h-screen flex justify-center items-center flex-col">
