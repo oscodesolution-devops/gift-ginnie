@@ -23,7 +23,7 @@ export default function HeroCards() {
   }
 
   if (popularcatogories) {
-    if (popularcatogories.data.length === 5) {
+    if (popularcatogories?.data?.length === 5) {
       return <FixedHeroCards imagesData={popularcatogories.data} />;
     } else {
       return <NotFixedHeroCards popularcatogories={popularcatogories} />;

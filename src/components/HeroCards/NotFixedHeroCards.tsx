@@ -18,7 +18,7 @@ export default function NotFixedHeroCards({
         </div>
       </div>
       <div className="mx-auto px-4 lg:px-20 py-12 flex justify-center flex-wrap gap-6 items-stretch">
-        {popularcatogories?.data.map((item: TPopularCategories) => (
+        {popularcatogories?.data?.map((item: TPopularCategories) => (
           <div
             onClick={() =>
               navigate(`/products`, {

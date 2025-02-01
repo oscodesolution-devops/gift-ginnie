@@ -29,7 +29,7 @@ export default function ImageGallery() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex(
-        (prevIndex) => (prevIndex + 1) % carouselItems?.data.length
+        (prevIndex) => (prevIndex + 1) % carouselItems?.data?.length
       );
     }, 5000); // Change every 5 seconds
     return () => clearInterval(interval);
