@@ -114,7 +114,29 @@ export default function Cart() {
   }
 
   if (error) {
-    return <div className="w-full min-h-screen flex justify-center items-center flex-col py-8 px-4  text-red-500">Error: {error.message}</div>;
+    if (error?.response?.data?.message === "Cart not found.") {
+      return (
+        <div className="w-full min-h-screen flex justify-center items-center flex-col py-8 px-4">
+          <div className="text-4xl font-bold">
+            {error?.response?.data?.message}
+          </div>
+          <div className="mt-9">
+            <Link
+              to="/products"
+              className="text-lg dark:bg-primary font-medium bg-black uppercase  py-3 px-5 text-primary dark:text-primaryDark"
+            >
+              <button>Continue Shopping</button>
+            </Link>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="w-full min-h-screen flex justify-center items-center flex-col py-8 px-4  text-red-500">
+        Error: {error.message}
+      </div>
+    );
   }
 
   const handleUpdateCart = (
@@ -134,7 +156,8 @@ export default function Cart() {
     removeFromCart(productId);
   };
 
-  const isCartEmpty = !cartItems?.data?.items || cartItems.data.items.length === 0;
+  const isCartEmpty =
+    !cartItems?.data?.items || cartItems.data.items.length === 0;
 
   return (
     <div className="w-full min-h-screen flex justify-center items-center flex-col py-8 px-4 dark:text-white">
@@ -188,10 +211,10 @@ export default function Cart() {
                 </div>
                 <div className="flex justify-start gap-4 items-center text-lg">
                   <div className="font-medium dark:text-white/80">
-                  ₹{item.product.selling_price}
+                    ₹{item.product.selling_price}
                   </div>
                   <div className="font-extralight line-through dark:text-white/40">
-                  ₹{item.product.original_price}
+                    ₹{item.product.original_price}
                   </div>
                 </div>
                 <div className="flex justify-start gap-4 items-center text-md">
