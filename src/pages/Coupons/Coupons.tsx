@@ -44,6 +44,12 @@ const CouponManagement: React.FC = () => {
     enabled: !!accessToken,
   });
 
+  // Filter valid coupons
+  const validCoupons =
+    couponsResponse?.data.filter(
+      (coupon) => coupon.valid_until >= new Date().toISOString()
+    ) || [];
+
   const applyMutation = useMutation<ApiResponse, Error, string>({
     mutationFn: (code: string) => applyCoupon(accessToken as string, code),
     onSuccess: (data) => {
@@ -103,7 +109,6 @@ const CouponManagement: React.FC = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold mb-6">Coupon Management</h1>
         <Link to="/address">
-          {" "}
           <button className="lg:text-xl font-semibold text-white bg-black px-2 py-1 uppercase mb-6">
             Continue
           </button>
@@ -126,7 +131,7 @@ const CouponManagement: React.FC = () => {
                   </p>
                   <p className="text-sm font-medium text-green-800 mt-2">
                     {appliedCoupon.discount_type === "FLAT"
-                      ? `${appliedCoupon.discount_value}% off`
+                      ? `₹${appliedCoupon.discount_value} off`
                       : `${appliedCoupon.discount_value}% off`}
                   </p>
                 </div>
@@ -171,37 +176,25 @@ const CouponManagement: React.FC = () => {
           <h2 className="text-xl font-semibold mb-4">Available Coupons</h2>
           {isLoadingCoupons ? (
             <div className="text-center text-gray-500">Loading coupons...</div>
-          ) : (
+          ) : validCoupons.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {couponsResponse?.data.map((coupon) => (
+              {validCoupons.map((coupon) => (
                 <div
                   key={coupon.id}
-                  className={`border p-4 rounded-lg transition-shadow cursor-pointer ${
-                    coupon.valid_until < new Date().toISOString()
-                      ? "bg-black-200 cursor-not-allowed"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    !appliedCoupon &&
-                    coupon.valid_until >= new Date().toISOString() &&
-                    handleCouponSelect(coupon)
-                  }
+                  className="border p-4 rounded-lg transition-shadow cursor-pointer"
+                  onClick={() => !appliedCoupon && handleCouponSelect(coupon)}
                 >
                   <div className="flex justify-between items-start">
                     <h3 className="font-semibold dark:text-white">
                       {coupon.title || coupon.code}
                     </h3>
-                    {coupon.valid_until < new Date().toISOString() ? (
-                      <p className="text-sm  mt-1 bg-red-500 px-2 py-1 uppercase font-semibold text-white">
-                        expired
-                      </p>
-                    ) : appliedCoupon?.id === coupon.id ? (
-                      <p className="text-sm  mt-1 bg-red-500 px-2 py-1 uppercase font-semibold text-white">
+                    {appliedCoupon?.id === coupon.id ? (
+                      <p className="text-sm mt-1 bg-blue-500 px-2 py-1 uppercase font-semibold text-white">
                         Applied
                       </p>
                     ) : (
-                      <p className="text-sm  mt-1 bg-green-500 px-2 py-1 uppercase font-semibold text-white">
-                        valid
+                      <p className="text-sm mt-1 bg-green-500 px-2 py-1 uppercase font-semibold text-white">
+                        Valid
                       </p>
                     )}
                   </div>
@@ -226,6 +219,10 @@ const CouponManagement: React.FC = () => {
                   </p>
                 </div>
               ))}
+            </div>
+          ) : (
+            <div className="text-center text-gray-500">
+              No valid coupons available at the moment.
             </div>
           )}
         </div>
