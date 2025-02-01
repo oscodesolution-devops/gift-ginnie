@@ -114,10 +114,12 @@ export default function Cart() {
   }
 
   if (error) {
+    // @ts-ignore
     if (error?.response?.data?.message === "Cart not found.") {
       return (
         <div className="w-full min-h-screen flex justify-center items-center flex-col py-8 px-4">
           <div className="text-4xl font-bold">
+            {/* @ts-ignore */}
             {error?.response?.data?.message}
           </div>
           <div className="mt-9">

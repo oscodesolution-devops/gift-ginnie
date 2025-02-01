@@ -28,7 +28,9 @@ export default function ReviewComponent() {
       queryClient.invalidateQueries({ queryKey: ["allProducts"] });
     },
     onError: (error) => {
+      // @ts-ignore
       if (error?.response?.data?.message)
+        // @ts-ignore
         return toast.error(error?.response?.data.message);
       toast.error("Not able to add the rating");
     },

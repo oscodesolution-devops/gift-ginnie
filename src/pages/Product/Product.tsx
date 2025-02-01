@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import Hero from "../../components/Hero/Hero";
 import Reviews from "../../components/Reviews/Reviews";
-import Trending from "../../components/TrendingSection/Trending";
 import Subscribe from "../../components/Subscribe/Subscribe";
 import { useQuery } from "@tanstack/react-query";
 import { getProduct } from "../../api/api";
