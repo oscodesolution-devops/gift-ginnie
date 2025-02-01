@@ -118,8 +118,20 @@ export const getAllCategories = async () => {
   return response.data;
 };
 export const getCatProducts = async (id: number) => {
-  const response = await axios.get(`${BASE_URL}/api/v1/products/categories/${id}/`, {
+  const response = await axios.get(
+    `${BASE_URL}/api/v1/products/categories/${id}/`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.data;
+};
+export const getReviews = async (token: string, id: number) => {
+  const response = await axios.get(`${BASE_URL}/api/v1/product/${id}/rating/`, {
     headers: {
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   });
@@ -221,6 +233,7 @@ export const addAddress = async (data: AddressForm, token: string) => {
 };
 
 export const updateProfile = async (data: ProfileForm, token: string) => {
+  console.log(data);
   const response = await axios.patch(
     `${BASE_URL}/api/v1/users/profile/update/`,
     data,
@@ -294,14 +307,20 @@ export const removeCoupon = async (token: string) => {
   return response.data;
 };
 
-export const postRating = async (token: string, productId: number) => {
+export const postRating = async (
+  token: string,
+  productId: number,
+  rating: number
+) => {
   const response = await axios.post(
     `${BASE_URL}/api/v1/product/${productId}/rating/`,
+    {
+      rating: rating,
+    },
     {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
-        accept: "application/json",
       },
     }
   );

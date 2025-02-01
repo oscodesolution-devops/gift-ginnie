@@ -103,7 +103,6 @@ function ProductInfo({ product }: { product: TProduct }) {
     }
   }, [addToCartState, resetAddToCartState]);
 
-
   return (
     <div className="w-full min-h-screen sm:mt-20">
       <div className="w-full pt-5 md:grid md:grid-cols-2 gap-8 px-6 md:px-7">
@@ -131,10 +130,10 @@ function ProductInfo({ product }: { product: TProduct }) {
 
           <div className="flex justify-between items-center py-6 border-b dark:border-white/30">
             <div className="text-lg md:text-xl font-thin">
-              ${product.original_price}
+            ₹{product.selling_price}
             </div>
             <div className="flex gap-4 text-sm">
-              <div className="line-through">${product.selling_price}</div>
+              <div className="line-through">₹{product.original_price}</div>
               <div className="bg-black/10 px-1 dark:bg-white/10">
                 {Math.round(
                   (1 -
@@ -215,9 +214,7 @@ function ProductInfo({ product }: { product: TProduct }) {
         </div>
       </div>
       <ReviewComponent />
-      <Hero />
-      <Reviews />
-      <Trending />
+      <Reviews productId={product.id}/>
       <Subscribe />
     </div>
   );

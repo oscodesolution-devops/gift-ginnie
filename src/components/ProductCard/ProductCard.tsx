@@ -7,7 +7,6 @@ import { useAuth } from "../../context/Auth";
 import { TProduct } from "../../types/Types";
 
 export default function ProductCard({ card }: { card: TProduct }) {
-  
   return (
     <div className="flex flex-col gap-2 cursor-pointer" key={card.id}>
       <div className="relative">
@@ -68,7 +67,7 @@ export function LikeButton({
       return addLikeItem(accessToken, cardId);
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["allProducts"] });
+      queryClient.invalidateQueries({ queryKey: ["reviews"] });
       toast.success(data.message);
     },
     onError: (error: Error) => {

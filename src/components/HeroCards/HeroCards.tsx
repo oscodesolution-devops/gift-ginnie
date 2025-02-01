@@ -4,7 +4,6 @@ import FixedHeroCards from "./FixedHeroCards";
 
 import NotFixedHeroCards from "./NotFixedHeroCards";
 
-
 export default function HeroCards() {
   const {
     data: popularcatogories,
@@ -14,7 +13,6 @@ export default function HeroCards() {
     queryKey: ["popularcatogories"],
     queryFn: async () => getPopularCategories(),
   });
-
 
   if (isLoading) {
     return <div>Loading...</div>;

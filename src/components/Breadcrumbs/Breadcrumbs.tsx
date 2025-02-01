@@ -17,7 +17,7 @@ export default function Breadcrumbs() {
         </span>
         {pathSegments.length > 0 &&
           pathSegments.map((item, index) => (
-            <span key={index}>
+            <span key={item + index}>
               {" "}
               /<span className="text-gray-500">{item}</span>
             </span>

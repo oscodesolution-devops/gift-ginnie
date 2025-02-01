@@ -171,7 +171,7 @@ const OrderDetails = () => {
                           {orderItem.delivery_address.pincode}
                         </p>
                         <p className="font-medium">
-                          Type: {orderItem.delivery_address.address_type}
+                          Type: {orderItem.delivery_address.address_type === "H" ? "Home" : "Business"}
                         </p>
                       </div>
                     </div>

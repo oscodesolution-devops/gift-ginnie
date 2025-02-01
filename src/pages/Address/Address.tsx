@@ -125,7 +125,7 @@ export default function AddressForm() {
             <div className="space-y-6 rounded-md shadow-sm">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium ">
-                  Email
+                  Address
                 </label>
                 <input
                   id="address_line_1"
@@ -299,6 +299,8 @@ const Address = () => {
     queryFn: () => getUserProfile(accessToken as string),
     enabled: !!accessToken,
   });
+
+  console.log(userData);
 
   if (isLoading) return;
   <div className="mb-10">

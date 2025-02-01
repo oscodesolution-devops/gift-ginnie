@@ -1,4 +1,3 @@
-import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Subscribe from "../../components/Subscribe/Subscribe";
 import { TProduct } from "../../types/Types";
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -78,6 +77,7 @@ export default function Advisiable() {
 
   return (
     <div className="w-full min-h-screen flex justify-center items-center flex-col">
+      
       <div className="px-6 py-16 md:py-20 dark:text-white w-full">
         <div className="flex justify-end items-center mb-8">
           <select

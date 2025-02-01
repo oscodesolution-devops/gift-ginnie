@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { postRating } from "../../api/api";
@@ -12,18 +12,28 @@ export default function ReviewComponent() {
   const [review, setReview] = useState("");
   const { productId } = useParams();
   const { accessToken } = useAuth();
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: () => {
-      return postRating(accessToken as string, parseInt(productId as string));
+      return postRating(
+        accessToken as string,
+        parseInt(productId as string),
+        rating
+      );
     },
     onSuccess: (data) => {
       toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["allProducts"] });
     },
-    onError: () => {
+    onError: (error) => {
+      if (error?.response?.data?.message)
+        return toast.error(error?.response?.data.message);
       toast.error("Not able to add the rating");
     },
   });
+
+  console.log(rating);
 
   const handleSubmit = () => {
     if (rating === 0) {
@@ -36,7 +46,7 @@ export default function ReviewComponent() {
   };
 
   return (
-    <div className="p-6 rounded-lg mt-10 shadow-lg bg-white dark:bg-black dark:text-white dark:border-2 dark:border-white max-w-md mx-auto">
+    <div className="p-6 rounded-lg my-10 shadow-lg bg-white dark:bg-black dark:text-white dark:border-2 dark:border-white max-w-md mx-auto">
       <h2 className="text-xl font-semibold mb-3">Rate Your Experience</h2>
 
       <div className="flex space-x-2 mb-4">
