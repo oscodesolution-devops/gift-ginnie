@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { TPopularCategories } from "../../types/Types";
 import HomeHeading from "../HomeHeading/HomeHeading";
 import { useTheme } from "./DefaultHeroCards";
@@ -10,6 +11,7 @@ export default function FixedHeroCards({
   imagesData: TPopularCategories[];
 }) {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -24,6 +26,11 @@ export default function FixedHeroCards({
         {/* Left Column */}
         <div className="space-y-6 flex flex-col h-full">
           <div
+            onClick={() =>
+              navigate(`/products`, {
+                state: { category_id: imagesData[0].category_id },
+              })
+            }
             className={`flex cursor-pointer flex-col justify-between bg-white border-2 rounded-lg p-6 h-full ${
               theme === "light" ? "card-gradient" : "dark:bg-[#1e1e1e]"
             }`}
@@ -44,6 +51,11 @@ export default function FixedHeroCards({
           </div>
 
           <div
+            onClick={() =>
+              navigate(`/products`, {
+                state: { category_id: imagesData[1].category_id },
+              })
+            }
             className={`flex flex-col cursor-pointer justify-between bg-white rounded-lg border-2 p-6 h-full ${
               theme === "light" ? "card-gradient" : "dark:bg-[#1e1e1e]"
             }`}
@@ -63,6 +75,11 @@ export default function FixedHeroCards({
 
         {/* Middle Column */}
         <div
+          onClick={() =>
+            navigate(`/products`, {
+              state: { category_id: imagesData[2].category_id },
+            })
+          }
           className={`flex border-2 flex-col cursor-pointer justify-between bg-white rounded-lg p-6 h-full ${
             theme === "light" ? "card-gradient" : "dark:bg-[#1e1e1e]"
           }`}
@@ -92,6 +109,11 @@ export default function FixedHeroCards({
         {/* Right Column */}
         <div className="space-y-6 flex flex-col h-full">
           <div
+            onClick={() =>
+              navigate(`/products`, {
+                state: { category_id: imagesData[3].category_id },
+              })
+            }
             className={`flex flex-col border-2 cursor-pointer justify-between bg-white rounded-lg p-6 h-full ${
               theme === "light" ? "card-gradient" : "dark:bg-[#1e1e1e]"
             }`}
@@ -109,6 +131,11 @@ export default function FixedHeroCards({
           </div>
 
           <div
+            onClick={() =>
+              navigate(`/products`, {
+                state: { category_id: imagesData[4].category_id },
+              })
+            }
             className={`flex flex-col border-2 cursor-pointer justify-between bg-white rounded-lg p-6 h-full ${
               theme === "light" ? "card-gradient" : "dark:bg-[#1e1e1e]"
             }`}
