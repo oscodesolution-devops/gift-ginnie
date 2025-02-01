@@ -109,6 +109,22 @@ export const getAllProduct = async (token: string) => {
     return response.data;
   }
 };
+export const getAllCategories = async () => {
+  const response = await axios.get(`${BASE_URL}/api/v1/products/categories/`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response.data;
+};
+export const getCatProducts = async (id: number) => {
+  const response = await axios.get(`${BASE_URL}/api/v1/products/categories/${id}/`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response.data;
+};
 export const getCartProducts = async (token: string) => {
   const response = await axios.get(`${BASE_URL}/api/v1/cart/`, {
     headers: {
