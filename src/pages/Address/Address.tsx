@@ -52,7 +52,6 @@ export default function AddressForm() {
       });
 
       setErrors({});
-      console.log(data);
 
       navigate("/order", { state: { address_id: data.data.id } });
     },

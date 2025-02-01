@@ -7,6 +7,7 @@ import { useAuth } from "../../context/Auth";
 import { TProduct } from "../../types/Types";
 
 export default function ProductCard({ card }: { card: TProduct }) {
+  
   return (
     <div className="flex flex-col gap-2 cursor-pointer" key={card.id}>
       <div className="relative">
@@ -71,7 +72,6 @@ export function LikeButton({
       toast.success(data.message);
     },
     onError: (error: Error) => {
-      console.log(error, "===============");
       if (error.message === "Unauthorized") {
         toast.error("Please login to like products");
       } else {
@@ -84,7 +84,6 @@ export function LikeButton({
     e.stopPropagation(); // Stop event propagation
     mutation.mutate();
   };
-  console.log(isLiked);
 
   return (
     <div

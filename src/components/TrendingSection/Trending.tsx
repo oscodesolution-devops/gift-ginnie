@@ -23,7 +23,6 @@ export default function Trending() {
     queryFn: async () => getPopularProducts(),
     // enabled: !!token,
   });
-  console.log(popularProducts);
 
 
 

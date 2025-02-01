@@ -30,7 +30,6 @@ export default function ReviewComponent() {
       alert("Please select a rating!");
       return;
     }
-    console.log("Review submitted:", { rating, review });
     setRating(0);
     setReview("");
     mutation.mutate();
