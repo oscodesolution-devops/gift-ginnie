@@ -38,17 +38,13 @@ function App() {
                 <Route
                   path="/"
                   element={
-                    <ProtectedRoute>
                       <Home />
-                    </ProtectedRoute>
                   }
                 />
                 <Route
                   path="/products"
                   element={
-                    <ProtectedRoute>
                       <Advisiable />
-                    </ProtectedRoute>
                   }
                 />
                 <Route path="/product/:productId" element={<ProtectedRoute>
