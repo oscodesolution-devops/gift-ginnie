@@ -3,7 +3,7 @@ import { useAuth } from "../../context/Auth";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { getUserProfile, updateProfile } from "../../api/api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TUserProfile } from "../Profile/Profile";
 
 export interface ProfileForm {
@@ -25,6 +25,9 @@ interface FormErrors {
 }
 
 export default function ProfileForm() {
+  const location = useLocation();
+  const { token } = location.state || {};
+
   const { accessToken } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState<ProfileForm>({
@@ -61,6 +64,12 @@ export default function ProfileForm() {
     enabled: !!accessToken,
   });
   const user = userData?.data as TUserProfile;
+
+  useEffect(() => {
+    if (user?.id && token === "fromOtp") {
+      navigate("/");
+    }
+  }, [token, user]);
 
   useEffect(() => {
     if (user?.id) {

@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-type TAddress = {
+export type TAddress = {
   id: number;
   address_line_1: string;
   address_line_2: string | null;
