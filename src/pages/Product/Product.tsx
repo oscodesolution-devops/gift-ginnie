@@ -103,7 +103,6 @@ function ProductInfo({ product }: { product: TProduct }) {
     }
   }, [addToCartState, resetAddToCartState]);
 
-  console.log(product);
 
   return (
     <div className="w-full min-h-screen sm:mt-20">

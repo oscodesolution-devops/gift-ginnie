@@ -136,7 +136,6 @@ export default function Cart() {
 
   const isCartEmpty = !cartItems?.data?.items || cartItems.data.items.length === 0;
 
-  console.log(cartItems)
   return (
     <div className="w-full min-h-screen flex justify-center items-center flex-col py-8 px-4 dark:text-white">
       {isCartEmpty === true ? (

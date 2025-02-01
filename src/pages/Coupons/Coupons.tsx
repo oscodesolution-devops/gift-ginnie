@@ -105,7 +105,7 @@ const CouponManagement: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6 mt-20 bg-white dark:bg-black dark:text-white rounded-lg shadow-md">
+    <div className="w-full min-h-screen max-w-4xl mx-auto p-6 mt-20 bg-white dark:bg-black dark:text-white rounded-lg shadow-md">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold mb-6">Coupon Management</h1>
         <Link to="/address">
