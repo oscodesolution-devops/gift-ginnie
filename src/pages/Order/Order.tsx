@@ -60,7 +60,7 @@ export default function Order() {
     onSuccess: () => {
       toast.success("Payment successful!");
       // Navigate to success page or order history
-      navigate("/");
+      navigate("/orders");
     },
     onError: (error: Error) => {
       console.error("Payment verification failed:", error);
