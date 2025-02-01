@@ -114,7 +114,7 @@ export default function Cart() {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div className="w-full min-h-screen flex justify-center items-center flex-col py-8 px-4  text-red-500">Error: {error.message}</div>;
   }
 
   const handleUpdateCart = (
@@ -134,9 +134,12 @@ export default function Cart() {
     removeFromCart(productId);
   };
 
+  const isCartEmpty = !cartItems?.data?.items || cartItems.data.items.length === 0;
+
+  console.log(cartItems)
   return (
     <div className="w-full min-h-screen flex justify-center items-center flex-col py-8 px-4 dark:text-white">
-      {cartItems?.data?.items.length === 0 ? (
+      {isCartEmpty === true ? (
         <div className="w-full flex flex-col items-center gap-4">
           <h1 className="text-4xl uppercase font-bold mb-6">
             Your Cart is empty
@@ -186,10 +189,10 @@ export default function Cart() {
                 </div>
                 <div className="flex justify-start gap-4 items-center text-lg">
                   <div className="font-medium dark:text-white/80">
-                    Rs {item.product.selling_price}
+                  ₹{item.product.selling_price}
                   </div>
                   <div className="font-extralight line-through dark:text-white/40">
-                    Rs {item.product.original_price}
+                  ₹{item.product.original_price}
                   </div>
                 </div>
                 <div className="flex justify-start gap-4 items-center text-md">
