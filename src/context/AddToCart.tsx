@@ -56,7 +56,9 @@ const AddToCartContext = createContext<AddToCartType>({
   initialCartLoading: false,
 });
 
-const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
+// const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
+const API_BASE_URL = "http://18.218.49.219:8000";
+
 
 export const AddToCart: React.FC<{ children: React.ReactNode }> = ({
   children,
