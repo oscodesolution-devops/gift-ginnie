@@ -2,8 +2,8 @@ import axios from "axios";
 import { AddressForm } from "../pages/Address/Address";
 import { ProfileForm } from "../pages/ProfileUpdate/ProfileUpdate";
 
-// const BASE_URL = import.meta.env.VITE_BACKEND_URL;
-const BASE_URL = "http://18.218.49.219:8000";
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+// const BASE_URL = "https://18.218.49.219:8000";
 
 
 
